@@ -1,0 +1,757 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1c1c1c">
+<title>Yellow Media · Marketing, comunicación, cultura y entretenimiento</title>
+<meta name="description" content="Comunicación, creatividad y desarrollo de audiencias para teatros, espectáculos y proyectos culturales. Madrid, trabajando on tour.">
+<meta property="og:title" content="Yellow Media · Marketing, comunicación, cultura y entretenimiento">
+<meta property="og:description" content="No llegamos cuando el proyecto está terminado para contarlo. Entramos antes.">
+<meta property="og:type" content="website">
+
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================================
+   YELLOW MEDIA · sistema visual
+   =========================================================== */
+:root{
+  --y:#FFD400;
+  --y-deep:#E6BE00;
+  --ink:#111111;
+  --bg:#1C1C1C;
+  --bg-2:#141414;
+  /* alabastro: el claro de la casa, nunca blanco puro */
+  --paper:#F2EFE6;
+  --fg:#E9E5D9;
+  --fg-dim:rgba(233,229,217,.82);
+  --line:rgba(233,229,217,.18);
+  --card:#242424;
+  --maxw:1680px;
+  /* titulares: grotesca condensada pesada, de cartel. Anton es la libre mas cercana */
+  --font-display:'Anton Local','Anton',Impact,'Haettenschweiler','Arial Narrow Bold','Arial Narrow',sans-serif;
+  /* texto: Montserrat, el sustituto libre de la Proxima Nova de Flickr */
+  --font-text:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --gutter:clamp(16px,3.4vw,54px);
+  /* curvas fuertes: las de serie de CSS se quedan flojas */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+}
+html[data-theme="light"]{
+  --bg:#F4F1E7;
+  --bg-2:#FBF7F1;
+  --fg:#131313;
+  --fg-dim:rgba(19,19,19,.80);
+  --line:rgba(19,19,19,.18);
+  --card:#F5F1E8;
+}
+/* Si dejas Anton-Regular.woff2 en assets/, la web no depende de Google Fonts.
+   Si no esta, se usa la copia de Google y, en su defecto, Impact. */
+@font-face{
+  font-family:'Anton Local';font-style:normal;font-weight:400;font-display:swap;
+  src:local('Anton'),local('Anton-Regular'),url('assets/Anton-Regular.woff2') format('woff2');
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:96px}
+main{overflow-x:clip}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:var(--font-text);
+  font-weight:400;line-height:1.45;overflow-x:hidden;
+  transition:background .45s ease,color .45s ease;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--y);color:var(--ink)}
+:focus-visible{outline:3px solid var(--y);outline-offset:3px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+.kicker{
+  font-size:clamp(11px,.78vw,13px);font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--fg-dim);margin:0 0 clamp(18px,2vw,34px)
+}
+
+/* ---------- titulares tipo Flickr: enormes, apretados ---------- */
+.display,h1,h2{
+  font-family:var(--font-display);font-weight:400;text-transform:uppercase;
+  letter-spacing:-.008em;line-height:.92;margin:0;
+}
+/* los titulares llenan el ancho: el minimo manda en movil, no el vw */
+h1,.display{font-size:clamp(2.1rem,5.8vw,4rem)}
+h2{font-size:clamp(2.1rem,5.8vw,4.75rem)}
+h3{font-family:var(--font-display);font-size:clamp(1.55rem,2.2vw,2.3rem);line-height:.88;letter-spacing:-.008em;font-weight:400;margin:0;text-transform:uppercase}
+p{margin:0}
+.lead{font-size:clamp(1.02rem,1.25vw,1.35rem);font-weight:400;line-height:1.36;color:var(--fg-dim)}
+
+/* revelado palabra a palabra */
+.w-line{display:block;overflow:hidden}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-top:.2em;margin-top:-.2em}
+.w > i{
+  display:inline-block;font-style:normal;transform:translateY(105%);
+  transition:transform .85s var(--ease-out);
+}
+.on .w > i{transform:translateY(0)}
+
+/* revelado genérico */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s var(--ease-out)}
+.reveal.on{opacity:1;transform:none}
+
+/* ---------- banner en movimiento ---------- */
+.ticker{
+  position:relative;z-index:60;background:var(--y);color:var(--ink);
+  overflow:hidden;white-space:nowrap;border-bottom:1px solid rgba(0,0,0,.18)
+}
+.ticker-track{display:flex;width:max-content;animation:slide 38s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-set{display:flex;align-items:center}
+.ticker-set span{
+  display:inline-block;padding:9px 0;font-size:clamp(11px,.85vw,13px);font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase
+}
+.ticker-set b{display:inline-block;padding:0 22px;font-weight:700;color:rgba(0,0,0,.45)}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- navegación ---------- */
+/* la cabecera va encima del video, como en el Guggenheim; se vuelve solida al bajar */
+.nav{
+  position:sticky;top:0;z-index:50;background:transparent;border-bottom:1px solid transparent;
+  margin-bottom:-63px;color:var(--paper);
+  transition:background 320ms ease,border-color 320ms ease,backdrop-filter 320ms ease
+}
+.nav.solid{
+  background:color-mix(in srgb,var(--bg) 96%,transparent);
+  backdrop-filter:saturate(140%) blur(14px);border-bottom-color:var(--line);color:inherit
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:63px}
+.brand{display:block;width:clamp(148px,13vw,215px)}
+.brand img{width:100%;height:auto;aspect-ratio:5573/774}
+html[data-theme="dark"] .brand .is-light{display:none}
+html[data-theme="light"] .brand .is-dark{display:none}
+/* sobre el video siempre en blanco */
+.nav:not(.solid) .brand .is-dark{display:none}
+.nav:not(.solid) .brand .is-light{display:block}
+.nav-links{display:flex;align-items:center;gap:clamp(16px,2vw,34px)}
+.nav-links a{
+  font-size:12px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  padding:6px 0;position:relative
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--y);
+  transition:right 240ms var(--ease-out)
+}
+.nav-links a:hover::after{right:0}
+.theme-btn{
+  display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:transparent;
+  color:inherit;border-radius:999px;padding:7px 13px;cursor:pointer;font:inherit;font-size:11px;
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;transition:border-color .3s,background .3s
+}
+.theme-btn:hover{border-color:var(--y);background:color-mix(in srgb,var(--y) 12%,transparent)}
+.theme-dot{width:11px;height:11px;border-radius:50%;background:var(--y);flex:none}
+
+/* ---------- portada ---------- */
+.hero{position:relative;height:calc(100svh - 38px);min-height:560px;overflow:hidden;background:#000}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg video,.hero-bg img{width:100%;height:100%;object-fit:cover}
+.hero-bg video{opacity:.7}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.62) 0%,rgba(0,0,0,.14) 38%,rgba(0,0,0,.88) 100%)
+}
+.hero-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;gap:clamp(16px,2vw,28px);padding-block:calc(63px + clamp(14px,2vw,28px)) clamp(26px,4vw,64px)}
+.hero-foot{display:grid;gap:clamp(18px,2.2vw,30px)}
+.hero h1{color:var(--paper);max-width:none}
+.hero-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:clamp(20px,3vw,48px)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(230px,26vw,400px);gap:clamp(24px,3.4vw,58px);align-items:start}
+.hero-mark{width:clamp(118px,9.6vw,168px)}
+.hero-mark img{width:100%;height:auto;aspect-ratio:1458/630}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+.btn{
+  display:inline-block;background:var(--y);color:var(--ink);border-radius:999px;
+  padding:15px 32px;font-size:13px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  transition:transform 180ms var(--ease-out),box-shadow 180ms ease
+}
+.btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(255,212,0,.28)}
+.btn:active{transform:translateY(-1px) scale(.97)}
+.hero-note{font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--paper)}
+.hero-lead{max-width:42ch;font-size:clamp(.95rem,1.1vw,1.2rem);font-weight:400;line-height:1.4;color:var(--paper);border-left:3px solid var(--y);padding-left:16px}
+
+/* ---------- declaración ---------- */
+/* banda amarilla: la frase sobre amarillo plano (legible) y el video debajo, dentro de la misma banda */
+.statement{position:relative;background:var(--y);color:var(--ink);padding:0;overflow:hidden}
+/* el amarillo del video esta reajustado al de la casa: sin costura visible */
+.statement-video{position:relative;height:min(88svh,780px);min-height:460px;overflow:hidden;background:var(--y)}
+.statement-video video{width:100%;height:100%;object-fit:cover;display:block}
+.statement-video::after{content:"";position:absolute;inset:0;background:rgba(255,212,0,.58);pointer-events:none}
+.statement-copy{position:absolute;z-index:2;left:0;right:0;bottom:clamp(30px,5vw,80px)}
+@media(max-width:700px){.statement-video{height:74svh}}
+/* la frase va encima del video: velo amarillo para que el disco se vea y el texto se lea */
+.statement p{
+  font-family:var(--font-display);font-weight:400;text-transform:uppercase;
+  font-size:clamp(2.1rem,5.8vw,4.75rem);line-height:.96;letter-spacing:-.008em;
+  max-width:none;color:var(--ink)
+}
+.statement mark{background:none;color:var(--ink);box-shadow:inset 0 -.1em 0 rgba(0,0,0,.4)}
+
+/* ---------- espacios ---------- */
+.section{padding:clamp(64px,8vw,130px) 0}
+.section.flush{padding-bottom:0}
+.sec-head{display:grid;gap:clamp(20px,2.4vw,38px);margin-bottom:clamp(30px,4vw,64px)}
+.sec-head .lead{max-width:40ch;justify-self:end}
+
+.spaces{display:grid;grid-template-columns:repeat(12,1fr);gap:0}
+.space{
+  position:relative;grid-column:span 4;min-height:66vh;overflow:hidden;background:#161616;
+  display:block;color:var(--paper);isolation:isolate
+}
+.space img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:saturate(.8) brightness(.62);
+  transition:transform 800ms var(--ease-out),filter 800ms var(--ease-out)
+}
+.space::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,.30) 0%,rgba(0,0,0,.12) 34%,rgba(0,0,0,.90));
+  transition:opacity 500ms var(--ease-out)
+}
+.space-txt{position:absolute;z-index:2;left:clamp(16px,1.6vw,26px);right:clamp(16px,1.6vw,26px);bottom:clamp(16px,1.6vw,24px)}
+.space-role{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--y);margin-bottom:10px}
+.space h3{color:var(--paper);font-size:clamp(25px,2.8vw,48px);line-height:.94;letter-spacing:-.01em}
+.space p{margin-top:14px;max-width:54ch;font-size:clamp(.9rem,.95vw,1.05rem);line-height:1.42;color:var(--paper)}
+.space-link{margin-top:14px;display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--paper)}
+.space-link .arrow{transition:transform 260ms var(--ease-out)}
+/* el texto largo aparece al pasar el cursor: la foto manda */
+@media(hover:hover) and (pointer:fine){
+  .space:hover img{transform:scale(1.06);filter:saturate(1.06) brightness(.82)}
+  .space:hover .space-link .arrow{transform:translate(5px,-5px)}
+}
+.space:active img{transform:scale(1.02)}
+/* tarjeta sin fotografia: fondo de color, no un hueco negro */
+.space.sinfoto{background:linear-gradient(150deg,#232323,#121212 62%,#1d1a12)}
+.space.sinfoto::after{background:linear-gradient(180deg,rgba(0,0,0,.10) 40%,rgba(0,0,0,.60))}
+.space.c-a{grid-column:1/8}
+.space.c-b{grid-column:8/13}
+.space.c-c{grid-column:1/5}
+.space.c-d{grid-column:5/9}
+.space.c-e{grid-column:9/13}
+.space.full{grid-column:1/13;min-height:82vh}
+.space.full h3{font-size:clamp(28px,4vw,75px)}
+.space.c-c h3,.space.c-d h3,.space.c-e h3{font-size:clamp(23px,1.9vw,31px)}
+@media(max-width:900px){
+  .space,.space.c-a,.space.c-b,.space.c-c,.space.c-d,.space.c-e,.space.full{grid-column:1/13;min-height:72vh}
+  .space h3,.space.full h3,.space.c-c h3,.space.c-d h3,.space.c-e h3{font-size:clamp(28px,7.4vw,46px)}
+  .space-role{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .space img{transition:none}
+}
+
+/* ---------- marcas ---------- */
+.brands{background:var(--y);color:var(--ink);padding:clamp(64px,8vw,120px) 0;overflow:hidden}
+.brands h2{color:var(--ink);margin-bottom:clamp(34px,4vw,66px)}
+.brands .kicker{color:rgba(0,0,0,.55)}
+.brand-marquee{position:relative;width:100%;overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.brand-track{display:flex;width:max-content;align-items:center;animation:slide 44s linear infinite}
+.brand-marquee:hover .brand-track{animation-play-state:paused}
+.brand-set{display:flex;align-items:center}
+.brand-item{
+  flex:none;display:grid;place-items:center;width:clamp(150px,15vw,230px);height:clamp(84px,8vw,124px);
+  padding:0 clamp(16px,1.8vw,30px);opacity:.82;transition:opacity .3s,transform .3s
+}
+.brand-item:hover{opacity:1;transform:scale(1.05)}
+.brand-item img{width:100%;height:100%;object-fit:contain}
+.brand-item span{
+  font-family:var(--font-display);font-weight:800;font-size:clamp(14px,1.1vw,19px);line-height:1.05;letter-spacing:-.01em;
+  text-transform:uppercase;text-align:center
+}
+.brand-item small{display:block;font-size:.62em;letter-spacing:.1em;margin-top:5px}
+
+/* ---------- lo que hacemos ---------- */
+.doing .row{
+  position:relative;display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:18px;
+  border-top:1px solid var(--line);padding:clamp(12px,1.4vw,22px) 0;overflow:hidden
+}
+.doing .row:last-child{border-bottom:1px solid var(--line)}
+.doing .row::before{
+  content:"";position:absolute;inset:0;background:var(--y);transform:scaleY(0);transform-origin:bottom;
+  transition:transform 280ms var(--ease-out);z-index:0
+}
+.doing .row:hover::before{transform:scaleY(1)}
+.doing .row > *{position:relative;z-index:1;transition:color .35s}
+.doing .row:hover > *{color:var(--ink)}
+.doing .n{font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--fg-dim)}
+.doing .row:hover .n{color:rgba(0,0,0,.6)}
+.doing .word{font-family:var(--font-display);font-size:clamp(1.3rem,4.6vw,3.8rem);font-weight:400;text-transform:uppercase;letter-spacing:-.008em;line-height:1}
+.doing .tag{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-dim);text-align:right;max-width:24ch}
+.doing .row:hover .tag{color:rgba(0,0,0,.65)}
+
+/* ---------- equipo ---------- */
+.team-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:30px;margin-bottom:clamp(30px,4vw,58px)}
+.team-mark{width:clamp(150px,15vw,240px)}
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,1.4vw,22px)}
+.person{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);overflow:hidden;transition:border-color 220ms ease,transform 220ms var(--ease-out)}
+.person-photo{background:var(--y);aspect-ratio:3/2;display:grid;place-items:end center;overflow:hidden}
+.person-photo img{width:auto;height:96%;object-fit:contain;transition:transform 420ms var(--ease-out)}
+@media(hover:hover) and (pointer:fine){
+  .person:hover{transform:translateY(-6px);border-color:var(--y)}
+  .person:hover .person-photo img{transform:translateY(-6px) scale(1.03)}
+}
+.person-body{padding:clamp(18px,1.6vw,26px);display:flex;flex-direction:column;gap:12px}
+.person-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px}
+.person-head strong{font-family:var(--font-display);font-weight:400;font-size:clamp(1.6rem,2.2vw,2.2rem);letter-spacing:-.008em;line-height:.92;text-transform:uppercase}
+.person-head span{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--y)}
+.person-body p{font-size:clamp(.88rem,.95vw,1rem);font-weight:400;line-height:1.5;color:var(--fg-dim)}
+
+/* ---------- manifiesto ---------- */
+.manifesto{background:var(--y);color:var(--ink);padding:clamp(80px,11vw,180px) 0}
+.manifesto p{font-family:var(--font-display);font-weight:400;text-transform:uppercase;font-size:clamp(2.4rem,6.7vw,8.5rem);line-height:.92;letter-spacing:-.008em;max-width:none}
+.manifesto em{font-style:normal;background:none;color:var(--ink);box-shadow:inset 0 -.1em 0 rgba(0,0,0,.4)}
+
+/* ---------- contacto ---------- */
+.contact{padding:clamp(70px,9vw,150px) 0 clamp(40px,5vw,70px)}
+.contact h2{font-size:clamp(2.4rem,6.7vw,8.5rem);line-height:.92}
+.contact-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:26px;border-top:1px solid var(--line);margin-top:clamp(26px,3vw,48px);padding-top:22px}
+.contact-foot p{max-width:44ch;font-size:clamp(.92rem,1.05vw,1.15rem);font-weight:400;color:var(--fg-dim)}
+.mail{font-size:clamp(1.05rem,1.7vw,1.9rem);font-weight:600;letter-spacing:-.01em;border-bottom:3px solid var(--y);padding-bottom:4px;display:inline-block;transition:color .3s}
+.mail:hover{color:var(--y)}
+
+/* ---------- pie ---------- */
+.foot{border-top:1px solid var(--line);padding-block:30px 42px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+.foot-logo{width:clamp(130px,11vw,180px);opacity:.75}
+html[data-theme="dark"] .foot-logo .is-light{display:none}
+html[data-theme="light"] .foot-logo .is-dark{display:none}
+.foot small,.foot a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-dim)}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a:hover{color:var(--y)}
+
+/* ---------- responsive ---------- */
+@media(max-width:860px){
+  .nav-links a:not(.nav-cta){display:none}
+  .hero-row{display:grid}
+  .doing .tag{display:none}
+  .doing .row{grid-template-columns:44px 1fr}
+}
+@media(max-width:640px){
+  .people{grid-template-columns:1fr}
+}
+/* pantallas muy estrechas: las palabras largas no caben al tamano general */
+@media(max-width:360px){
+  h1,.display{font-size:5vw}
+  h2{font-size:5vw}
+  .doing .word{font-size:4.2vw}
+  .contact h2{font-size:6vw}
+  .space h3,.space.full h3,.space.c-c h3,.space.c-d h3,.space.c-e h3{font-size:5.8vw}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none}
+  .w > i{transform:none}
+  .ticker-track,.brand-track{animation:none}
+  .space:hover,.person:hover{transform:none}
+  .space:hover img,.person:hover .person-photo img{transform:none}
+
+}
+</style>
+</head>
+<body>
+
+<!-- ===== banner en movimiento ===== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <div class="ticker-set">
+      <span>Marketing</span><b>·</b><span>Comunicación</span><b>·</b><span>Cultura</span><b>·</b><span>Entretenimiento</span><b>·</b><span>Madrid</span><b>·</b><span>Trabajando on tour</span><b>·</b>
+      <span>Marketing</span><b>·</b><span>Comunicación</span><b>·</b><span>Cultura</span><b>·</b><span>Entretenimiento</span><b>·</b><span>Madrid</span><b>·</b><span>Trabajando on tour</span><b>·</b>
+    </div>
+    <div class="ticker-set">
+      <span>Marketing</span><b>·</b><span>Comunicación</span><b>·</b><span>Cultura</span><b>·</b><span>Entretenimiento</span><b>·</b><span>Madrid</span><b>·</b><span>Trabajando on tour</span><b>·</b>
+      <span>Marketing</span><b>·</b><span>Comunicación</span><b>·</b><span>Cultura</span><b>·</b><span>Entretenimiento</span><b>·</b><span>Madrid</span><b>·</b><span>Trabajando on tour</span><b>·</b>
+    </div>
+  </div>
+</div>
+
+<!-- ===== navegación ===== -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#inicio" aria-label="Yellow Media · inicio">
+      <img class="is-dark" src="assets/logo-ym-dark.png" alt="Yellow Media">
+      <img class="is-light" src="assets/logo-ym-light.png" alt="Yellow Media">
+    </a>
+    <nav class="nav-links">
+      <a href="#espacios">Espacios</a>
+      <a href="#hacemos">Lo que hacemos</a>
+      <a href="#somos">Somos</a>
+      <a class="nav-cta" href="#contacto">Contacto</a>
+      <button class="theme-btn" id="theme" type="button" aria-label="Cambiar entre modo claro y oscuro">
+        <span class="theme-dot"></span><span id="theme-label">Claro</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+  <!-- ===== portada ===== -->
+  <section class="hero">
+    <div class="hero-bg">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="https://laestacion.com/wp-content/uploads/2025/02/video-dinner-show-2-1.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="wrap hero-in">
+      <div class="hero-mark reveal"><img src="assets/somos-yellow-blanco.png" alt="Somos Yellow"></div>
+      <div class="hero-foot">
+        <h1 data-split>Convertimos proyectos culturales en historias.</h1>
+        <div class="hero-row">
+          <p class="hero-lead reveal">Historias que generan atención, reputación y público. No llegamos cuando el proyecto está terminado para contarlo: entramos antes.</p>
+          <div class="hero-cta reveal">
+            <a class="btn" href="#contacto">Hablemos</a>
+            <span class="hero-note">Madrid · Trabajando on tour</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== declaración ===== -->
+  <section class="statement">
+    <div class="statement-video">
+      <video autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
+        <source src="assets/video-zapatos.mp4" type="video/mp4">
+      </video>
+      <div class="wrap statement-copy">
+        <p class="reveal">Acompañamos cada proyecto desde su <mark>concepción</mark> hasta su percepción final.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== espacios ===== -->
+  <section class="section flush" id="espacios">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="kicker">Espacios</p>
+          <h2 data-split>Donde trabajamos.</h2>
+        </div>
+        <p class="lead reveal">Teatros, un castillo y un recinto de 66.000 m² en construcción. En cada uno llevamos la comunicación completa: prensa, campañas, contenidos, redes y desarrollo de público.</p>
+      </div>
+    </div>
+
+    <div class="spaces">
+
+        <a class="space c-a reveal" href="https://www.granteatropavon.com/" target="_blank" rel="noopener">
+          <img src="https://www.granteatropavon.com/wp-content/uploads/2026/04/HALL.VESTIVULO1.jpg" alt="Vestíbulo del Gran Teatro Pavón" loading="lazy">
+          <div class="space-txt">
+            <p class="space-role">Madrid · Teatro</p>
+            <h3>Gran Teatro Pavón</h3>
+            <p>El espacio con más carga de comunicación. Prensa y campaña de cada estreno de la temporada, dosieres, bases de datos segmentadas, planes de medios y contenidos. También la señalética del edificio y el programa de talleres Los Altos del Pavón. Declarado Bien de Interés Patrimonial en 2026.</p>
+            <span class="space-link">granteatropavon.com <span class="arrow">↗</span></span>
+          </div>
+        </a>
+
+        <a class="space c-b reveal" href="https://laestacion.com/" target="_blank" rel="noopener">
+          <img src="https://laestacion.com/wp-content/uploads/2025/02/IMG_4152.jpg" alt="Gran Teatro CaixaBank Príncipe Pío" loading="lazy">
+          <div class="space-txt">
+            <p class="space-role">Madrid · Teatro</p>
+            <h3>Gran Teatro CaixaBank Príncipe Pío</h3>
+            <p>Comunicación y prensa del teatro y de sus producciones. Campañas de estreno, informes de clipping, planes de medios, campañas en Meta Ads e informe diario de ventas. Sede de We Will Rock You.</p>
+            <span class="space-link">laestacion.com <span class="arrow">↗</span></span>
+          </div>
+        </a>
+
+        <a class="space c-c reveal" href="https://www.granteatropavon.com/" target="_blank" rel="noopener">
+          <img src="https://www.granteatropavon.com/wp-content/uploads/2026/04/5.jpg" alt="Ambigú del Gran Teatro Pavón" loading="lazy">
+          <div class="space-txt">
+            <p class="space-role">Madrid · Café teatro</p>
+            <h3>Ambigú del Gran Teatro Pavón</h3>
+            <p>Identidad y comunicación del Ambigú: apertura de Instagram, Facebook y ficha de Google, rotulación del acceso por la calle Dos Hermanas y programación de contenidos como el Encuentro de Narradores.</p>
+            <span class="space-link">granteatropavon.com <span class="arrow">↗</span></span>
+          </div>
+        </a>
+
+        <a class="space c-d reveal" href="https://teatroserrano.com/" target="_blank" rel="noopener">
+          <img src="https://teatroserrano.com/wp-content/uploads/2025/09/TEATRO-SERRANO-BUTACAS-683x1024.jpg" alt="Patio de butacas del Teatro Serrano" loading="lazy">
+          <div class="space-txt">
+            <p class="space-role">Teatro</p>
+            <h3>Teatro Serrano</h3>
+            <p>Comunicación e imagen del espacio y campaña de prensa de La vida en un segundo, con bases de datos propias para Barcelona, Asturias y Madrid.</p>
+            <span class="space-link">teatroserrano.com <span class="arrow">↗</span></span>
+          </div>
+        </a>
+
+        <a class="space c-e reveal" href="https://grancastillodepedraza.com/" target="_blank" rel="noopener">
+          <img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/bc3e4f62-e646-a756-dd13-9972e03faf69.jpg" alt="Gran Castillo de Pedraza" loading="lazy">
+          <div class="space-txt">
+            <p class="space-role">Segovia · Patrimonio</p>
+            <h3>Gran Castillo de Pedraza</h3>
+            <p>Prensa y materiales de los ciclos Noches Clásicas y Caprichos Musicales, programas de mano digitales, plan de medios de la zona y base de datos de alojamientos.</p>
+            <span class="space-link">grancastillodepedraza.com <span class="arrow">↗</span></span>
+          </div>
+        </a>
+
+        <a class="space full reveal" href="https://sohocitymadrid.com/" target="_blank" rel="noopener">
+          <img src="assets/soho-city.jpg" alt="Soho City Madrid" loading="lazy">
+          <div class="space-txt">
+            <p class="space-role">Madrid · Ciudad del entretenimiento</p>
+            <h3>Soho City Madrid</h3>
+            <p>Relato, identidad pública y ecosistema digital del recinto. Prensa de las Jornadas de Puertas Abiertas, sistema de reservas con entrada en PDF, manual de marca, señalética y redes sociales. El Auditorio, con 1.400 localidades, y El Circo, con gradas retráctiles.</p>
+            <span class="space-link">sohocitymadrid.com <span class="arrow">↗</span></span>
+          </div>
+        </a>
+
+    </div>
+  </section>
+
+  <!-- ===== marcas ===== -->
+  <section class="brands">
+    <div class="wrap">
+      <p class="kicker">Con quién trabajamos</p>
+      <h2 data-split>El trabajo habla.</h2>
+    </div>
+    <div class="brand-marquee">
+      <div class="brand-track">
+        <div class="brand-set">
+          <a class="brand-item" href="https://laestacion.com/" target="_blank" rel="noopener"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/93d7a2ce-fc82-e707-f2f5-530d4e7aa72a.png" alt="Gran Teatro CaixaBank Príncipe Pío"></a>
+          <a class="brand-item" href="https://www.granteatropavon.com/" target="_blank" rel="noopener"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/a2135b00-5073-4e96-17ea-58952af0d1ff.png" alt="Gran Teatro Pavón"></a>
+          <a class="brand-item" href="https://www.granteatropavon.com/" target="_blank" rel="noopener"><img src="assets/logo-ambigu.png" alt="Ambigú del Gran Teatro Pavón"></a>
+          <a class="brand-item" href="https://teatroserrano.com/" target="_blank" rel="noopener"><img src="https://teatroserrano.com/wp-content/uploads/2025/09/logots.png" alt="Teatro Serrano"></a>
+          <a class="brand-item" href="https://grancastillodepedraza.com/" target="_blank" rel="noopener"><img src="assets/logo-gran-castillo-de-pedraza.png" alt="Gran Castillo de Pedraza"></a>
+          <a class="brand-item" href="https://sohocitymadrid.com/" target="_blank" rel="noopener"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/89072ced-aa0f-5d77-1fdf-6d5012192b1a.png" alt="Soho City Madrid"></a>
+          <a class="brand-item" href="https://abonoteatro.com/" target="_blank" rel="noopener"><img src="assets/logo-abono-teatro.png" alt="Abonoteatro"></a>
+          <a class="brand-item" href="https://wonderlandgroup.es/" target="_blank" rel="noopener"><img src="assets/logo-wonderland.png" alt="Wonderland"></a>
+          <a class="brand-item" href="https://wewillrockyou.es/" target="_blank" rel="noopener"><span>We Will<br>Rock You</span></a>
+          <a class="brand-item" href="https://101dalmatas.es/" target="_blank" rel="noopener"><span>101 Dálmatas<br><small>The Show</small></span></a>
+          <a class="brand-item" href="https://julianfontalvo.com/el-show" target="_blank" rel="noopener"><span>El Imitador</span></a>
+        </div>
+        <div class="brand-set" aria-hidden="true">
+          <span class="brand-item"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/93d7a2ce-fc82-e707-f2f5-530d4e7aa72a.png" alt=""></span>
+          <span class="brand-item"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/a2135b00-5073-4e96-17ea-58952af0d1ff.png" alt=""></span>
+          <span class="brand-item"><img src="assets/logo-ambigu.png" alt=""></span>
+          <span class="brand-item"><img src="https://teatroserrano.com/wp-content/uploads/2025/09/logots.png" alt=""></span>
+          <span class="brand-item"><img src="assets/logo-gran-castillo-de-pedraza.png" alt=""></span>
+          <span class="brand-item"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/89072ced-aa0f-5d77-1fdf-6d5012192b1a.png" alt=""></span>
+          <span class="brand-item"><img src="assets/logo-abono-teatro.png" alt=""></span>
+          <span class="brand-item"><img src="assets/logo-wonderland.png" alt=""></span>
+          <span class="brand-item"><span>We Will<br>Rock You</span></span>
+          <span class="brand-item"><span>101 Dálmatas<br><small>The Show</small></span></span>
+          <span class="brand-item"><span>El Imitador</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== lo que hacemos ===== -->
+  <section class="section doing" id="hacemos">
+    <div class="wrap">
+      <p class="kicker">Lo que hacemos</p>
+      <div class="row reveal"><span class="n">01</span><span class="word">Estrategia</span><span class="tag">Posicionamiento y plan de comunicación</span></div>
+      <div class="row reveal"><span class="n">02</span><span class="word">Prensa</span><span class="tag">Notas, dosieres, entrevistas y clipping</span></div>
+      <div class="row reveal"><span class="n">03</span><span class="word">Creatividad</span><span class="tag">Relato, identidad y contenidos</span></div>
+      <div class="row reveal"><span class="n">04</span><span class="word">Digital</span><span class="tag">Redes, email y campañas de pago</span></div>
+      <div class="row reveal"><span class="n">05</span><span class="word">Audiencias</span><span class="tag">Venta de entradas y fidelización</span></div>
+      <div class="row reveal"><span class="n">06</span><span class="word">Desarrollo</span><span class="tag">Nuevos formatos y proyectos</span></div>
+    </div>
+  </section>
+
+  <!-- ===== equipo ===== -->
+  <section class="section" id="somos">
+    <div class="wrap">
+      <div class="team-head">
+        <div class="team-mark reveal"><img src="assets/somos-yellow-blanco.png" alt="Somos Yellow"></div>
+        <p class="lead reveal">Más de 15 años trabajando juntos entre producción, promoción, publicidad, comunicación y marketing cultural.</p>
+      </div>
+      <div class="people">
+        <article class="person reveal">
+          <div class="person-photo"><img src="assets/team-celia.png" alt="Celia"></div>
+          <div class="person-body">
+            <div class="person-head"><strong>Celia</strong><span>CEO · Dirección ejecutiva y fundadora</span></div>
+            <p>Especialista en números, lectora empedernida y con un ojo casi sobrenatural para detectar lo que no encaja. Tiene la capacidad de coger un proyecto desde cero y hacerlo realidad, además de un don de gentes que hace que todo resulte más fácil. Divertida, resolutiva y futura antropóloga.</p>
+            <p>La organización quizá no sea su superpoder, pero hemos venido a hablar de las cosas buenas.</p>
+          </div>
+        </article>
+        <article class="person reveal">
+          <div class="person-photo"><img src="assets/team-fer.png" alt="Fer"></div>
+          <div class="person-body">
+            <div class="person-head"><strong>Fer</strong><span>Comunicación, marketing y desarrollo de audiencias</span></div>
+            <p>Piensa a la vez como periodista, marketer, productor, gestor cultural y responsable de ventas. Eso le deja seguir la cadena entera: desde que se crea el espectáculo hasta que alguien compra la entrada.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== manifiesto ===== -->
+  <section class="manifesto">
+    <div class="wrap">
+      <p class="reveal">Un proyecto no termina cuando está hecho. Termina cuando alguien <em>decide formar parte.</em></p>
+    </div>
+  </section>
+
+  <!-- ===== contacto ===== -->
+  <section class="contact" id="contacto">
+    <div class="wrap">
+      <p class="kicker">¿Hacemos algo?</p>
+      <h2 data-split>Hablemos.</h2>
+      <div class="contact-foot">
+        <p class="reveal">Si hay un proyecto que construir, contar o hacer crecer, podemos empezar por ahí.</p>
+        <a class="mail" href="mailto:info@yellowmedia.es">info@yellowmedia.es ↗</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="foot-logo" href="#inicio" aria-label="Yellow Media">
+      <img class="is-dark" src="assets/logo-ym-dark.png" alt="Yellow Media">
+      <img class="is-light" src="assets/logo-ym-light.png" alt="Yellow Media">
+    </a>
+    <small>© 2026 Yellow Media · Madrid</small>
+    <nav aria-label="Información legal">
+      <a href="#aviso-legal">Aviso legal</a>
+      <a href="#privacidad">Privacidad</a>
+      <a href="#cookies">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- titulares palabra a palabra --- */
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var words = el.textContent.trim().split(/\s+/);
+    el.textContent = '';
+    words.forEach(function(word, i){
+      var s = document.createElement('span');
+      s.className = 'w';
+      var inner = document.createElement('i');
+      inner.textContent = word;
+      inner.style.transitionDelay = (i * 55) + 'ms';
+      s.appendChild(inner);
+      el.appendChild(s);
+      el.appendChild(document.createTextNode(' '));
+    });
+  });
+
+  /* --- revelado al entrar en pantalla --- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting) return;
+      e.target.classList.add('on');
+      io.unobserve(e.target);
+    });
+  }, {threshold: .12, rootMargin: '0px 0px -8% 0px'});
+
+  document.querySelectorAll('.reveal, [data-split]').forEach(function(el, i){
+    if (el.classList.contains('reveal')) el.style.transitionDelay = ((i % 4) * 60) + 'ms';
+    io.observe(el);
+  });
+
+  /* --- parallax suave en las fotos de portada --- */
+  var layers = [].slice.call(document.querySelectorAll('[data-parallax]'));
+  if (layers.length && !reduce){
+    var ticking = false;
+    var move = function(){
+      var vh = window.innerHeight;
+      layers.forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > vh + 200) return;
+        var f = parseFloat(el.getAttribute('data-parallax')) || 0;
+        el.style.transform = 'translate3d(0,' + ((r.top - vh / 2) * -f).toFixed(2) + 'px,0)';
+      });
+      ticking = false;
+    };
+    window.addEventListener('scroll', function(){
+      if (!ticking){ ticking = true; requestAnimationFrame(move); }
+    }, {passive:true});
+    window.addEventListener('resize', move, {passive:true});
+    move();
+  }
+
+  /* --- los titulares se estiran hasta tocar los dos margenes --- */
+  var FIT = 0.55; /* poco mas de la mitad del ancho disponible */
+  var fitSel = '.hero h1, .sec-head h2, .statement p, .manifesto p, .contact h2, .doing .word, .space h3';
+  function fitOne(el){
+    var avail = el.clientWidth;
+    if (!avail) return;
+    /* la portada es una pantalla: el titular tambien tiene que caber de alto */
+    var maxH = Infinity, hin = el.closest('.hero-in');
+    var sv = el.closest('.statement-video');
+    if (sv) maxH = sv.clientHeight * 0.62;
+    if (hin){
+      var cs = getComputedStyle(hin), gap = parseFloat(cs.rowGap) || 0;
+      maxH = hin.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      Array.prototype.forEach.call(hin.children, function(c){
+        if (!c.contains(el)) maxH -= c.offsetHeight + gap;
+      });
+      var foot = el.parentElement, fcs = getComputedStyle(foot), fgap = parseFloat(fcs.rowGap) || 0;
+      Array.prototype.forEach.call(foot.children, function(c){
+        if (c !== el) maxH -= c.offsetHeight + fgap;
+      });
+    }
+    /* en las tarjetas de espacios, el titulo tiene que caber sobre la foto */
+    var sp = el.closest('.space');
+    if (sp){
+      var txt = el.closest('.space-txt');
+      var inset = parseFloat(getComputedStyle(txt).bottom) || 16;
+      maxH = sp.clientHeight - inset * 2;
+      Array.prototype.forEach.call(txt.children, function(c){
+        if (c !== el) maxH -= c.offsetHeight + (parseFloat(getComputedStyle(c).marginTop) || 0);
+      });
+    }
+    el.style.fontSize = '';
+    var base = parseFloat(getComputedStyle(el).fontSize);
+    var lo = base * 0.55, hi = Math.min(base * 3.4, 300), mid, i, j, w, ok;
+    for (i = 0; i < 16; i++){
+      mid = (lo + hi) / 2;
+      el.style.fontSize = mid + 'px';
+      var rg = document.createRange();
+      rg.selectNodeContents(el);
+      var rects = rg.getClientRects();
+      w = 0;
+      for (j = 0; j < rects.length; j++) if (rects[j].width > w) w = rects[j].width;
+      ok = (w <= avail) && (el.offsetHeight <= maxH);
+      if (ok) lo = mid; else hi = mid;
+    }
+    el.style.fontSize = Math.floor(Math.max(lo * FIT, Math.min(base, lo))) + 'px';
+  }
+  function fitAll(){ document.querySelectorAll(fitSel).forEach(fitOne); }
+  fitAll();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  window.addEventListener('load', fitAll);
+  var rt;
+  window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(fitAll, 140); }, {passive:true});
+
+  /* --- la cabecera se vuelve solida al salir de la portada --- */
+  var nav = document.querySelector('.nav');
+  var hero = document.querySelector('.hero');
+  if (nav && hero){
+    new IntersectionObserver(function(en){
+      nav.classList.toggle('solid', !en[0].isIntersecting);
+    }, {rootMargin: '-70px 0px 0px 0px', threshold: 0}).observe(hero);
+  }
+
+  /* --- modo claro / oscuro --- */
+  var btn = document.getElementById('theme');
+  var label = document.getElementById('theme-label');
+  var meta = document.querySelector('meta[name="theme-color"]');
+  btn.addEventListener('click', function(){
+    var light = document.documentElement.getAttribute('data-theme') === 'light';
+    document.documentElement.setAttribute('data-theme', light ? 'dark' : 'light');
+    label.textContent = light ? 'Claro' : 'Oscuro';
+    if (meta) meta.setAttribute('content', light ? '#1c1c1c' : '#f4f1e7');
+  });
+})();
+</script>
+</body>
+</html>
