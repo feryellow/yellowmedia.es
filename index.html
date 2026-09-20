@@ -368,8 +368,7 @@ html[data-theme="light"] .sobre-oscuro{display:none}
 }
 .temporada[hidden]{display:none}
 .temporada .punto{width:7px;height:7px;border-radius:50%;background:var(--ink);flex:none}
-.team-mark .sobre-oscuro{aspect-ratio:1458/630}
-.team-mark .sobre-claro{aspect-ratio:900/347}
+.team-mark img{aspect-ratio:1458/630}
 .team-mark img{width:100%;height:auto}
 .people{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,1.4vw,22px)}
 .person{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);overflow:hidden;transition:border-color 220ms ease,transform 220ms var(--ease-out)}
@@ -678,7 +677,7 @@ html[data-theme="light"] .sobre-oscuro{display:none}
       <div class="team-head">
         <div class="team-mark reveal">
           <img class="sobre-oscuro" src="assets/somos-yellow-blanco.png" alt="Somos Yellow">
-          <img class="sobre-claro" src="assets/somos-yellow-negro.png" alt="Somos Yellow">
+          <img class="sobre-claro" src="assets/somos-yellow-tinta.png" alt="Somos Yellow">
           <span class="temporada" id="temporada" hidden><span class="punto"></span><span id="temporada-txt"></span></span>
         </div>
         <p class="lead reveal">Más de 15 años trabajando juntos entre producción, promoción, publicidad, comunicación y marketing cultural.</p>
@@ -733,9 +732,9 @@ html[data-theme="light"] .sobre-oscuro{display:none}
     <small>© 2026 Yellow Media · Madrid</small>
     <nav aria-label="Información legal">
       <a href="prensa/">Sala de prensa</a>
-      <a href="#aviso-legal">Aviso legal</a>
-      <a href="#privacidad">Privacidad</a>
-      <a href="#cookies">Cookies</a>
+      <a href="legal/#aviso-legal">Aviso legal</a>
+      <a href="legal/#privacidad">Privacidad</a>
+      <a href="legal/#cookies">Cookies</a>
     </nav>
   </div>
 </footer>
