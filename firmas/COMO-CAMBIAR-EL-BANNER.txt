@@ -1,0 +1,91 @@
+FIRMA DE CORREO — cómo cambiar el banner sin tocar la firma
+===========================================================
+
+La firma de Gmail apunta a dos direcciones fijas que nunca cambian:
+
+    https://www.yellowmedia.es/banners/banner.png
+    https://www.yellowmedia.es/avatares/fer.png     (y celia.png)
+
+Lo que cambia es el archivo que hay detrás de esa dirección. Se sustituye en
+el repositorio y, en cuanto Netlify publica, todas las firmas muestran el
+nuevo. Nadie tiene que volver a pegar nada en Gmail.
+
+
+CAMBIAR EL BANNER
+-----------------
+
+1. Diseña el banner a 960 x 240 píxeles. Se ve a 480 x 120, el doble es para
+   que no salga borroso en pantallas buenas.
+
+   Piensa que muchos lo verán a la mitad de tamaño en el móvil: texto grande,
+   pocas palabras, nada de párrafos.
+
+2. Guárdalo como PNG con el nombre exacto: banner.png
+   Que no pase de 150 KB. Si pesa más, pásalo por tinypng.com.
+
+3. Sustituye el archivo banners/banner.png del repositorio por el nuevo y
+   sube el cambio. Netlify publica en menos de un minuto.
+
+4. Para comprobarlo, abre la dirección del banner en una pestaña nueva y
+   recarga con Ctrl+Shift+R. Si ves el nuevo, está hecho.
+
+
+CUÁNTO TARDA EN VERSE
+---------------------
+
+El archivo _headers de la raíz le dice al servidor que estas imágenes caducan
+a los diez minutos. Sin eso tardarían días. No lo borres.
+
+Aun así, Gmail no carga tus imágenes directamente: las copia en sus propios
+servidores. En correos nuevos verás el banner nuevo enseguida. En correos ya
+enviados, unas veces se actualiza y otras no. No cuentes con ello, y
+tampoco te conviene: un correo de hace medio año anunciando un estreno que
+entonces no existía queda raro.
+
+
+CAMBIAR EL AVATAR
+-----------------
+
+En la carpeta avatares están todas las versiones ya recortadas a 180 x 180:
+
+    fer-base.png            celia-base.png
+    fer-navidad.png         celia-navidad.png
+    fer-semana-santa.png    celia-semana-santa.png
+    fer-verano.png          celia-verano.png
+    fer-pegados.png         celia-pegados.png
+
+La firma siempre pide dos archivos: fer.png y celia.png. Para cambiar de
+avatar, copias encima el que quieras y lo renombras. Es decir: coges
+fer-navidad.png, lo duplicas, y a la copia la llamas fer.png. Subes, y la
+firma cambia en menos de un minuto.
+
+Ahora mismo están puestos los de Pegados.
+
+Ojo: esto es manual. La web cambia los retratos sola porque puede ejecutar
+código; un correo no, así que aquí hay que sustituir el archivo a mano.
+
+Si el avatar no cambia enseguida, es la caché del programa de correo. En Mail
+de Mac, cerrar y volver a abrir la aplicación lo fuerza.
+
+
+PONER LA FIRMA EN GMAIL
+-----------------------
+
+Abre fer.html (o celia.html) con doble clic en el navegador, selecciona todo
+con Ctrl+A, copia con Ctrl+C y pega en Gmail: Configuración > Ver todos los
+ajustes > General > Firma.
+
+No pegues el código, pega lo que se ve. Gmail conserva el formato.
+
+
+LO QUE NO SE VE IGUAL EN TODAS PARTES
+-------------------------------------
+
+Outlook de escritorio ignora bastantes cosas de CSS. Por eso el avatar viene
+ya recortado en círculo dentro del propio PNG: así sale redondo en todos
+lados, no solo donde funciona el redondeo por código.
+
+Muchos clientes bloquean las imágenes hasta que el destinatario pulsa
+"mostrar imágenes". Mientras tanto se ve el texto alternativo. Por eso los
+datos de contacto son texto y nunca imagen: aunque no cargue nada, tu nombre,
+tu correo y tu teléfono se leen.
