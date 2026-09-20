@@ -1,0 +1,16 @@
+# Cabeceras de Netlify.
+#
+# Los banners y los avatares de la firma de correo se sustituyen a menudo y
+# tienen que actualizarse rapido: 10 minutos de cache y revalidacion obligada.
+# Sin esto, Netlify y el proxy de imagenes de Gmail seguirian sirviendo la
+# version antigua durante dias.
+
+/banners/*
+  Cache-Control: public, max-age=600, must-revalidate
+
+/avatares/*
+  Cache-Control: public, max-age=600, must-revalidate
+
+# El resto de recursos si conviene que se cacheen mucho tiempo.
+/assets/*
+  Cache-Control: public, max-age=604800
