@@ -131,12 +131,14 @@ p{margin:0}
 }
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:63px}
 .brand{display:block;width:clamp(148px,13vw,215px)}
-.brand img{width:100%;height:auto;aspect-ratio:5573/774}
-html[data-theme="dark"] .brand .is-light{display:none}
-html[data-theme="light"] .brand .is-dark{display:none}
+.brand img{width:100%;height:auto;aspect-ratio:1400/189}
+/* el logo se elige por el fondo: -oscuro lleva tinta negra y va sobre claro */
+html[data-theme="dark"] .sobre-claro{display:none}
+html[data-theme="light"] .sobre-oscuro{display:none}
 /* sobre el video siempre en blanco */
-.nav:not(.solid) .brand .is-dark{display:none}
-.nav:not(.solid) .brand .is-light{display:block}
+/* con la cabecera transparente sobre el video, siempre el de tinta clara */
+.nav:not(.solid) .brand .sobre-claro{display:none}
+.nav:not(.solid) .brand .sobre-oscuro{display:block}
 .nav-links{display:flex;align-items:center;gap:clamp(16px,2vw,34px)}
 .nav-links a{
   font-size:12px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
@@ -253,9 +255,10 @@ html[data-theme="light"] .brand .is-dark{display:none}
 }
 
 /* ---------- marcas ---------- */
-.brands{background:var(--y);color:var(--ink);padding:clamp(64px,8vw,120px) 0;overflow:hidden}
-.brands h2{color:var(--ink);margin-bottom:clamp(34px,4vw,66px)}
-.brands .kicker{color:rgba(0,0,0,.55)}
+/* fondo oscuro: es el unico sobre el que se leen todas las marcas a la vez */
+.brands{background:#0F0F0F;color:var(--paper);padding:clamp(64px,8vw,120px) 0;overflow:hidden}
+.brands h2{color:var(--paper);margin-bottom:clamp(34px,4vw,66px)}
+.brands .kicker{color:rgba(242,239,230,.62)}
 .brand-marquee{position:relative;width:100%;overflow:hidden;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
   mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
@@ -263,11 +266,19 @@ html[data-theme="light"] .brand .is-dark{display:none}
 .brand-marquee:hover .brand-track{animation-play-state:paused}
 .brand-set{display:flex;align-items:center}
 .brand-item{
-  flex:none;display:grid;place-items:center;width:clamp(150px,15vw,230px);height:clamp(84px,8vw,124px);
-  padding:0 clamp(16px,1.8vw,30px);opacity:.82;transition:opacity .3s,transform .3s
+  flex:none;display:grid;align-content:center;justify-items:center;
+  width:clamp(150px,14.5vw,225px);height:clamp(112px,10.6vw,168px);
+  padding:0 clamp(16px,1.8vw,30px);opacity:.9;transition:opacity .3s,transform .3s
 }
 .brand-item:hover{opacity:1;transform:scale(1.05)}
-.brand-item img{width:100%;height:100%;object-fit:contain}
+/* Tope en pixeles: con porcentajes, los logos verticales se salian de la caja.
+   --alto ajusta cada marca para que todas pesen lo mismo a la vista: un logo
+   alto con el mismo alto que uno apaisado se ve el doble de grande. */
+.brand-item img{
+  width:100%;height:auto;object-fit:contain;
+  max-height:calc(var(--alto,1) * clamp(112px,10.6vw,168px))
+}
+.brand-item span{color:var(--paper);align-self:center;justify-self:center}
 .brand-item span{
   font-family:var(--font-display);font-weight:800;font-size:clamp(14px,1.1vw,19px);line-height:1.05;letter-spacing:-.01em;
   text-transform:uppercase;text-align:center
@@ -296,10 +307,26 @@ html[data-theme="light"] .brand .is-dark{display:none}
 /* ---------- equipo ---------- */
 .team-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:30px;margin-bottom:clamp(30px,4vw,58px)}
 .team-mark{width:clamp(150px,15vw,240px)}
+/* distintivo de temporada: solo aparece cuando hay una activa */
+.temporada{
+  display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+  background:var(--y);color:var(--ink);border-radius:999px;padding:6px 14px;
+  font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase
+}
+.temporada[hidden]{display:none}
+.temporada .punto{width:7px;height:7px;border-radius:50%;background:var(--ink);flex:none}
+.team-mark .sobre-oscuro{aspect-ratio:1458/630}
+.team-mark .sobre-claro{aspect-ratio:900/347}
+.team-mark img{width:100%;height:auto}
 .people{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,1.4vw,22px)}
 .person{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);overflow:hidden;transition:border-color 220ms ease,transform 220ms var(--ease-out)}
-.person-photo{background:var(--y);aspect-ratio:3/2;display:grid;place-items:end center;overflow:hidden}
-.person-photo img{width:auto;height:96%;object-fit:contain;transition:transform 420ms var(--ease-out)}
+/* el retrato se ajusta entero y se apoya abajo; con alto en % se recortaba la cabeza */
+.person-photo{position:relative;background:var(--y);aspect-ratio:3/2;overflow:hidden}
+.person-photo img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;object-position:bottom center;
+  transition:transform 420ms var(--ease-out)
+}
 @media(hover:hover) and (pointer:fine){
   .person:hover{transform:translateY(-6px);border-color:var(--y)}
   .person:hover .person-photo img{transform:translateY(-6px) scale(1.03)}
@@ -325,9 +352,8 @@ html[data-theme="light"] .brand .is-dark{display:none}
 
 /* ---------- pie ---------- */
 .foot{border-top:1px solid var(--line);padding-block:30px 42px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
-.foot-logo{width:clamp(130px,11vw,180px);opacity:.75}
-html[data-theme="dark"] .foot-logo .is-light{display:none}
-html[data-theme="light"] .foot-logo .is-dark{display:none}
+.foot-logo{width:clamp(130px,11vw,180px);opacity:.8}
+.foot-logo img{width:100%;height:auto;aspect-ratio:1400/189}
 .foot small,.foot a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-dim)}
 .foot nav{display:flex;flex-wrap:wrap;gap:18px}
 .foot a:hover{color:var(--y)}
@@ -360,6 +386,16 @@ html[data-theme="light"] .foot-logo .is-dark{display:none}
 
 }
 </style>
+
+<!-- ===== Umami (analitica sin cookies) =====
+     Sustituye las DOS cosas marcadas cuando tengas tu instancia:
+       1. TU-INSTANCIA-UMAMI  -> el dominio donde corre tu Umami
+       2. TU-WEBSITE-ID       -> el identificador que te da Umami al anadir la web
+     data-domains evita que se cuenten las visitas cuando abres el archivo en local. -->
+<script defer
+        src="https://TU-INSTANCIA-UMAMI/script.js"
+        data-website-id="TU-WEBSITE-ID"
+        data-domains="yellowmedia.es,www.yellowmedia.es"></script>
 </head>
 <body>
 
@@ -381,13 +417,14 @@ html[data-theme="light"] .foot-logo .is-dark{display:none}
 <header class="nav">
   <div class="wrap nav-in">
     <a class="brand" href="#inicio" aria-label="Yellow Media · inicio">
-      <img class="is-dark" src="assets/logo-ym-dark.png" alt="Yellow Media">
-      <img class="is-light" src="assets/logo-ym-light.png" alt="Yellow Media">
+      <img class="sobre-oscuro" src="assets/logo-ym-claro.png" alt="Yellow Media">
+      <img class="sobre-claro" src="assets/logo-ym-oscuro.png" alt="Yellow Media">
     </a>
     <nav class="nav-links">
       <a href="#espacios">Espacios</a>
       <a href="#hacemos">Lo que hacemos</a>
       <a href="#somos">Somos</a>
+      <a href="prensa/">Prensa</a>
       <a class="nav-cta" href="#contacto">Contacto</a>
       <button class="theme-btn" id="theme" type="button" aria-label="Cambiar entre modo claro y oscuro">
         <span class="theme-dot"></span><span id="theme-label">Claro</span>
@@ -518,30 +555,30 @@ html[data-theme="light"] .foot-logo .is-dark{display:none}
     <div class="brand-marquee">
       <div class="brand-track">
         <div class="brand-set">
-          <a class="brand-item" href="https://laestacion.com/" target="_blank" rel="noopener"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/93d7a2ce-fc82-e707-f2f5-530d4e7aa72a.png" alt="Gran Teatro CaixaBank Príncipe Pío"></a>
-          <a class="brand-item" href="https://www.granteatropavon.com/" target="_blank" rel="noopener"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/a2135b00-5073-4e96-17ea-58952af0d1ff.png" alt="Gran Teatro Pavón"></a>
-          <a class="brand-item" href="https://www.granteatropavon.com/" target="_blank" rel="noopener"><img src="assets/logo-ambigu.png" alt="Ambigú del Gran Teatro Pavón"></a>
-          <a class="brand-item" href="https://teatroserrano.com/" target="_blank" rel="noopener"><img src="https://teatroserrano.com/wp-content/uploads/2025/09/logots.png" alt="Teatro Serrano"></a>
-          <a class="brand-item" href="https://grancastillodepedraza.com/" target="_blank" rel="noopener"><img src="assets/logo-gran-castillo-de-pedraza.png" alt="Gran Castillo de Pedraza"></a>
-          <a class="brand-item" href="https://sohocitymadrid.com/" target="_blank" rel="noopener"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/89072ced-aa0f-5d77-1fdf-6d5012192b1a.png" alt="Soho City Madrid"></a>
-          <a class="brand-item" href="https://abonoteatro.com/" target="_blank" rel="noopener"><img src="assets/logo-abono-teatro.png" alt="Abonoteatro"></a>
-          <a class="brand-item" href="https://wonderlandgroup.es/" target="_blank" rel="noopener"><img src="assets/logo-wonderland.png" alt="Wonderland"></a>
-          <a class="brand-item" href="https://wewillrockyou.es/" target="_blank" rel="noopener"><span>We Will<br>Rock You</span></a>
-          <a class="brand-item" href="https://101dalmatas.es/" target="_blank" rel="noopener"><span>101 Dálmatas<br><small>The Show</small></span></a>
-          <a class="brand-item" href="https://julianfontalvo.com/el-show" target="_blank" rel="noopener"><span>El Imitador</span></a>
+          <a class="brand-item" style="--alto:.57" href="https://laestacion.com/" target="_blank" rel="noopener"><img src="assets/marca-principe-pio.png" alt="Gran Teatro CaixaBank Príncipe Pío" loading="lazy"></a>
+          <a class="brand-item" style="--alto:.50" href="https://granteatropavon.com/ambigu" target="_blank" rel="noopener"><img src="assets/marca-ambigu.png" alt="Ambigú del Gran Teatro Pavón" loading="lazy"></a>
+          <a class="brand-item" href="https://101dalmatas.es/" target="_blank" rel="noopener"><img src="assets/marca-101-dalmatas.png" alt="101 Dálmatas · The Show" loading="lazy"></a>
+          <a class="brand-item" style="--alto:.61" href="https://wonderlandgroup.es/" target="_blank" rel="noopener"><img src="assets/marca-wonderland.png" alt="Wonderland" loading="lazy"></a>
+          <a class="brand-item" style="--alto:.66" href="https://www.granteatropavon.com/" target="_blank" rel="noopener"><img src="assets/marca-pavon.png" alt="Gran Teatro Pavón" loading="lazy"></a>
+          <a class="brand-item" href="https://sohocitymadrid.com/" target="_blank" rel="noopener"><img src="assets/marca-soho-city.png" alt="Soho City Madrid" loading="lazy"></a>
+          <a class="brand-item" href="https://julianfontalvo.com/el-show" target="_blank" rel="noopener"><img src="assets/marca-el-imitador.png" alt="El Imitador" loading="lazy"></a>
+          <a class="brand-item" style="--alto:.83" href="https://grancastillodepedraza.com/" target="_blank" rel="noopener"><img src="assets/marca-pedraza.png" alt="Gran Castillo de Pedraza" loading="lazy"></a>
+          <a class="brand-item" style="--alto:.64" href="https://wewillrockyou.es/" target="_blank" rel="noopener"><img src="assets/marca-wwry.png" alt="We Will Rock You" loading="lazy"></a>
+          <a class="brand-item" style="--alto:.60" href="https://teatroserrano.com/" target="_blank" rel="noopener"><img src="assets/marca-serrano.png" alt="Teatro Serrano" loading="lazy"></a>
+          <a class="brand-item" href="https://abonoteatro.com/" target="_blank" rel="noopener"><img src="assets/marca-abonoteatro.png" alt="Abonoteatro" loading="lazy"></a>
         </div>
-        <div class="brand-set" aria-hidden="true">
-          <span class="brand-item"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/93d7a2ce-fc82-e707-f2f5-530d4e7aa72a.png" alt=""></span>
-          <span class="brand-item"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/a2135b00-5073-4e96-17ea-58952af0d1ff.png" alt=""></span>
-          <span class="brand-item"><img src="assets/logo-ambigu.png" alt=""></span>
-          <span class="brand-item"><img src="https://teatroserrano.com/wp-content/uploads/2025/09/logots.png" alt=""></span>
-          <span class="brand-item"><img src="assets/logo-gran-castillo-de-pedraza.png" alt=""></span>
-          <span class="brand-item"><img src="https://mcusercontent.com/64e548057cb4bbc3f77790aa6/_thumbs/89072ced-aa0f-5d77-1fdf-6d5012192b1a.png" alt=""></span>
-          <span class="brand-item"><img src="assets/logo-abono-teatro.png" alt=""></span>
-          <span class="brand-item"><img src="assets/logo-wonderland.png" alt=""></span>
-          <span class="brand-item"><span>We Will<br>Rock You</span></span>
-          <span class="brand-item"><span>101 Dálmatas<br><small>The Show</small></span></span>
-          <span class="brand-item"><span>El Imitador</span></span>
+        <div class="brand-set">
+          <span class="brand-item" style="--alto:.57" aria-hidden="true"><img src="assets/marca-principe-pio.png" alt="" loading="lazy"></span>
+          <span class="brand-item" style="--alto:.50" aria-hidden="true"><img src="assets/marca-ambigu.png" alt="" loading="lazy"></span>
+          <span class="brand-item" aria-hidden="true"><img src="assets/marca-101-dalmatas.png" alt="" loading="lazy"></span>
+          <span class="brand-item" style="--alto:.61" aria-hidden="true"><img src="assets/marca-wonderland.png" alt="" loading="lazy"></span>
+          <span class="brand-item" style="--alto:.66" aria-hidden="true"><img src="assets/marca-pavon.png" alt="" loading="lazy"></span>
+          <span class="brand-item" aria-hidden="true"><img src="assets/marca-soho-city.png" alt="" loading="lazy"></span>
+          <span class="brand-item" aria-hidden="true"><img src="assets/marca-el-imitador.png" alt="" loading="lazy"></span>
+          <span class="brand-item" style="--alto:.83" aria-hidden="true"><img src="assets/marca-pedraza.png" alt="" loading="lazy"></span>
+          <span class="brand-item" style="--alto:.64" aria-hidden="true"><img src="assets/marca-wwry.png" alt="" loading="lazy"></span>
+          <span class="brand-item" style="--alto:.60" aria-hidden="true"><img src="assets/marca-serrano.png" alt="" loading="lazy"></span>
+          <span class="brand-item" aria-hidden="true"><img src="assets/marca-abonoteatro.png" alt="" loading="lazy"></span>
         </div>
       </div>
     </div>
@@ -564,12 +601,16 @@ html[data-theme="light"] .foot-logo .is-dark{display:none}
   <section class="section" id="somos">
     <div class="wrap">
       <div class="team-head">
-        <div class="team-mark reveal"><img src="assets/somos-yellow-blanco.png" alt="Somos Yellow"></div>
+        <div class="team-mark reveal">
+          <img class="sobre-oscuro" src="assets/somos-yellow-blanco.png" alt="Somos Yellow">
+          <img class="sobre-claro" src="assets/somos-yellow-negro.png" alt="Somos Yellow">
+          <span class="temporada" id="temporada" hidden><span class="punto"></span><span id="temporada-txt"></span></span>
+        </div>
         <p class="lead reveal">Más de 15 años trabajando juntos entre producción, promoción, publicidad, comunicación y marketing cultural.</p>
       </div>
       <div class="people">
         <article class="person reveal">
-          <div class="person-photo"><img src="assets/team-celia.png" alt="Celia"></div>
+          <div class="person-photo"><img id="foto-celia" src="assets/team-celia.png" alt="Celia" data-base="assets/team-celia"></div>
           <div class="person-body">
             <div class="person-head"><strong>Celia</strong><span>CEO · Dirección ejecutiva y fundadora</span></div>
             <p>Especialista en números, lectora empedernida y con un ojo casi sobrenatural para detectar lo que no encaja. Tiene la capacidad de coger un proyecto desde cero y hacerlo realidad, además de un don de gentes que hace que todo resulte más fácil. Divertida, resolutiva y futura antropóloga.</p>
@@ -577,7 +618,7 @@ html[data-theme="light"] .foot-logo .is-dark{display:none}
           </div>
         </article>
         <article class="person reveal">
-          <div class="person-photo"><img src="assets/team-fer.png" alt="Fer"></div>
+          <div class="person-photo"><img id="foto-fer" src="assets/team-fer.png" alt="Fer" data-base="assets/team-fer"></div>
           <div class="person-body">
             <div class="person-head"><strong>Fer</strong><span>Comunicación, marketing y desarrollo de audiencias</span></div>
             <p>Piensa a la vez como periodista, marketer, productor, gestor cultural y responsable de ventas. Eso le deja seguir la cadena entera: desde que se crea el espectáculo hasta que alguien compra la entrada.</p>
@@ -611,11 +652,12 @@ html[data-theme="light"] .foot-logo .is-dark{display:none}
 <footer>
   <div class="wrap foot">
     <a class="foot-logo" href="#inicio" aria-label="Yellow Media">
-      <img class="is-dark" src="assets/logo-ym-dark.png" alt="Yellow Media">
-      <img class="is-light" src="assets/logo-ym-light.png" alt="Yellow Media">
+      <img class="sobre-oscuro" src="assets/logo-ym-claro.png" alt="Yellow Media">
+      <img class="sobre-claro" src="assets/logo-ym-oscuro.png" alt="Yellow Media">
     </a>
     <small>© 2026 Yellow Media · Madrid</small>
     <nav aria-label="Información legal">
+      <a href="prensa/">Sala de prensa</a>
       <a href="#aviso-legal">Aviso legal</a>
       <a href="#privacidad">Privacidad</a>
       <a href="#cookies">Cookies</a>
@@ -740,6 +782,56 @@ html[data-theme="light"] .foot-logo .is-dark{display:none}
       nav.classList.toggle('solid', !en[0].isIntersecting);
     }, {rootMargin: '-70px 0px 0px 0px', threshold: 0}).observe(hero);
   }
+
+  /* ============================================================
+     RETRATOS POR TEMPORADA
+     Cambian solos segun la fecha. Para verlos fuera de fecha,
+     abre la web con ?temporada=navidad, semana-santa, verano o base.
+     ============================================================ */
+  (function(){
+    var celia = document.getElementById('foto-celia');
+    var fer   = document.getElementById('foto-fer');
+    var chip  = document.getElementById('temporada');
+    var chipT = document.getElementById('temporada-txt');
+    if (!celia || !fer) return;
+
+    /* domingo de Resurreccion del año dado (algoritmo de Meeus) */
+    function pascua(y){
+      var a=y%19, b=Math.floor(y/100), c=y%100, d=Math.floor(b/4), e=b%4,
+          f=Math.floor((b+8)/25), g=Math.floor((b-f+1)/3),
+          h=(19*a+b-d-g+15)%30, i=Math.floor(c/4), k=c%4,
+          l=(32+2*e+2*i-h-k)%7, m=Math.floor((a+11*h+22*l)/451),
+          mes=Math.floor((h+l-7*m+114)/31), dia=((h+l-7*m+114)%31)+1;
+      return new Date(y, mes-1, dia);
+    }
+    function dias(a,b){ return Math.round((b-a)/86400000); }
+
+    function cual(hoy){
+      var y = hoy.getFullYear(), m = hoy.getMonth()+1, d = hoy.getDate();
+      /* Navidad: del 1 de diciembre al 7 de enero */
+      if (m === 12 || (m === 1 && d <= 7)) return 'navidad';
+      /* Semana Santa: del Domingo de Ramos al de Resurreccion */
+      var p = pascua(y), t = dias(hoy, p);
+      if (t >= 0 && t <= 7) return 'semana-santa';
+      /* Verano: del 21 de junio al 10 de septiembre */
+      if ((m === 6 && d >= 21) || m === 7 || m === 8 || (m === 9 && d <= 10)) return 'verano';
+      return 'base';
+    }
+
+    var nombres = {navidad:'Edición Navidad', 'semana-santa':'Edición Semana Santa', verano:'Edición Verano'};
+    var forzada = (location.search.match(/[?&]temporada=([a-z-]+)/) || [])[1];
+    var t = forzada || cual(new Date());
+    if (!nombres[t] && t !== 'base') t = 'base';
+
+    if (t !== 'base'){
+      [celia, fer].forEach(function(img){
+        var nueva = new Image();
+        nueva.onload = function(){ img.src = nueva.src; };
+        nueva.src = img.getAttribute('data-base') + '-' + t + '.png';
+      });
+      if (chip){ chipT.textContent = nombres[t]; chip.hidden = false; }
+    }
+  })();
 
   /* --- modo claro / oscuro --- */
   var btn = document.getElementById('theme');

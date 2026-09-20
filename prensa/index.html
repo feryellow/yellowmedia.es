@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="es" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sala de Prensa · Yellow Media</title>
+<meta name="description" content="Notas de prensa, fotografias en alta y fichas artisticas de los espacios y espectaculos de Yellow Media.">
+<link rel="canonical" href="https://yellowmedia.es/prensa/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sala de Prensa · Yellow Media">
+<meta property="og:description" content="Notas de prensa, fotografias en alta y fichas artisticas. Descarga libre para uso periodistico.">
+<meta property="og:url" content="https://yellowmedia.es/prensa/">
+<meta name="theme-color" content="#f7f5ef">
+<link rel="icon" href="../assets/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ===========================================================
+   YELLOW MEDIA · sistema visual
+   =========================================================== */
+:root{
+  --y:#FFD400;
+  --y-deep:#E6BE00;
+  --ink:#111111;
+  --bg:#1C1C1C;
+  --bg-2:#141414;
+  /* alabastro: el claro de la casa, nunca blanco puro */
+  --paper:#F2EFE6;
+  --fg:#E9E5D9;
+  --fg-dim:rgba(233,229,217,.82);
+  --line:rgba(233,229,217,.18);
+  --card:#242424;
+  --maxw:1680px;
+  /* titulares: grotesca condensada pesada, de cartel. Anton es la libre mas cercana */
+  --font-display:'Anton Local','Anton',Impact,'Haettenschweiler','Arial Narrow Bold','Arial Narrow',sans-serif;
+  /* texto: Montserrat, el sustituto libre de la Proxima Nova de Flickr */
+  --font-text:'Montserrat','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --gutter:clamp(16px,3.4vw,54px);
+  /* curvas fuertes: las de serie de CSS se quedan flojas */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+}
+html[data-theme="light"]{
+  --bg:#F4F1E7;
+  --bg-2:#FBF7F1;
+  --fg:#131313;
+  --fg-dim:rgba(19,19,19,.80);
+  --line:rgba(19,19,19,.18);
+  --card:#F5F1E8;
+}
+/* Si dejas Anton-Regular.woff2 en assets/, la web no depende de Google Fonts.
+   Si no esta, se usa la copia de Google y, en su defecto, Impact. */
+@font-face{
+  font-family:'Anton Local';font-style:normal;font-weight:400;font-display:swap;
+  src:local('Anton'),local('Anton-Regular'),url('../assets/Anton-Regular.woff2') format('woff2');
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:96px}
+main{overflow-x:clip}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font-family:var(--font-text);
+  font-weight:400;line-height:1.45;overflow-x:hidden;
+  transition:background .45s ease,color .45s ease;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+::selection{background:var(--y);color:var(--ink)}
+:focus-visible{outline:3px solid var(--y);outline-offset:3px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--gutter)}
+.kicker{
+  font-size:clamp(11px,.78vw,13px);font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--fg-dim);margin:0 0 clamp(18px,2vw,34px)
+}
+
+/* ---------- titulares tipo Flickr: enormes, apretados ---------- */
+.display,h1,h2{
+  font-family:var(--font-display);font-weight:400;text-transform:uppercase;
+  letter-spacing:-.008em;line-height:.92;margin:0;
+}
+/* los titulares llenan el ancho: el minimo manda en movil, no el vw */
+h1,.display{font-size:clamp(2.1rem,5.8vw,4rem)}
+h2{font-size:clamp(2.1rem,5.8vw,4.75rem)}
+h3{font-family:var(--font-display);font-size:clamp(1.55rem,2.2vw,2.3rem);line-height:.88;letter-spacing:-.008em;font-weight:400;margin:0;text-transform:uppercase}
+p{margin:0}
+.lead{font-size:clamp(1.02rem,1.25vw,1.35rem);font-weight:400;line-height:1.36;color:var(--fg-dim)}
+
+/* revelado palabra a palabra */
+.w-line{display:block;overflow:hidden}
+.w{display:inline-block;overflow:hidden;vertical-align:top;padding-top:.2em;margin-top:-.2em}
+.w > i{
+  display:inline-block;font-style:normal;transform:translateY(105%);
+  transition:transform .85s var(--ease-out);
+}
+.on .w > i{transform:translateY(0)}
+
+/* revelado genérico */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s var(--ease-out)}
+.reveal.on{opacity:1;transform:none}
+
+/* ---------- navegación ---------- */
+/* misma cabecera que la web */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb,var(--bg) 96%,transparent);
+  backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid var(--line);
+  transition:background 320ms ease,border-color 320ms ease,backdrop-filter 320ms ease
+}
+.nav.solid{
+  background:color-mix(in srgb,var(--bg) 96%,transparent);
+  backdrop-filter:saturate(140%) blur(14px);border-bottom-color:var(--line);color:inherit
+}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:63px}
+.brand{display:block;width:clamp(148px,13vw,215px)}
+.brand img{width:100%;height:auto;aspect-ratio:1400/189}
+/* el logo se elige por el fondo: -oscuro lleva tinta negra y va sobre claro */
+html[data-theme="dark"] .sobre-claro{display:none}
+html[data-theme="light"] .sobre-oscuro{display:none}
+.nav-links{display:flex;align-items:center;gap:clamp(16px,2vw,34px)}
+.nav-links a{
+  font-size:12px;font-weight:700;letter-spacing:.17em;text-transform:uppercase;
+  padding:6px 0;position:relative
+}
+.nav-links a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;height:2px;background:var(--y);
+  transition:right 240ms var(--ease-out)
+}
+.nav-links a:hover::after{right:0}
+.theme-btn{
+  display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:transparent;
+  color:inherit;border-radius:999px;padding:7px 13px;cursor:pointer;font:inherit;font-size:11px;
+  font-weight:700;letter-spacing:.14em;text-transform:uppercase;transition:border-color .3s,background .3s
+}
+.theme-btn:hover{border-color:var(--y);background:color-mix(in srgb,var(--y) 12%,transparent)}
+.theme-dot{width:11px;height:11px;border-radius:50%;background:var(--y);flex:none}
+
+.foot{border-top:1px solid var(--line);padding-block:30px 42px;display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+.foot-logo{width:clamp(130px,11vw,180px);opacity:.8}
+.foot-logo img{width:100%;height:auto;aspect-ratio:1400/189}
+.foot small,.foot a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg-dim)}
+.foot nav{display:flex;flex-wrap:wrap;gap:18px}
+.foot a:hover{color:var(--y)}
+
+/* ---------- sala de prensa ---------- */
+.sp-head{padding:clamp(52px,7vw,110px) 0 clamp(24px,3vw,40px)}
+.sp-head .lead{max-width:78ch;margin-top:clamp(16px,2vw,26px)}
+
+.sp-filtros{
+  display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,30px);align-items:baseline;
+  padding-bottom:clamp(18px,2.4vw,32px);border-bottom:1px solid var(--line)
+}
+.sp-filtro{
+  border:0;background:none;padding:0;cursor:pointer;color:var(--fg-dim);font:inherit;
+  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  transition:color 200ms ease
+}
+.sp-filtro sup{font-size:9px;font-weight:700;letter-spacing:0;margin-left:5px;opacity:.7;top:-.6em;position:relative}
+.sp-filtro:hover{color:var(--fg)}
+.sp-filtro[aria-pressed="true"]{color:var(--y)}
+/* espacios sin material: se ven, pero en segundo plano */
+.sp-filtro.vacio{opacity:.45}
+.sp-filtro.vacio:hover{opacity:.75}
+.sp-archivo-item.vacio h3,.sp-archivo-item.vacio p{opacity:.5}
+
+.sp-lista{padding:clamp(10px,1.6vw,26px) 0 clamp(50px,7vw,110px)}
+.sp-nota{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,290px);gap:clamp(16px,3vw,56px);
+  align-items:start;padding:clamp(26px,3.2vw,46px) 0;border-bottom:1px solid var(--line)
+}
+.sp-meta{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin-bottom:10px}
+.sp-esp{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--y)}
+.sp-fecha{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-dim)}
+.sp-nota h2{
+  font-family:var(--font-display);font-weight:400;text-transform:uppercase;letter-spacing:-.008em;
+  line-height:.94;font-size:clamp(1.5rem,2.5vw,2.5rem);margin:0 0 12px
+}
+.sp-nota p{margin:0;max-width:64ch;color:var(--fg-dim);font-size:clamp(.95rem,1.05vw,1.1rem);line-height:1.5}
+.sp-recursos{display:grid;gap:2px}
+.sp-recurso{
+  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+  padding:9px 0;border-bottom:1px solid var(--line);
+  font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  transition:color 200ms ease
+}
+.sp-recurso:last-child{border-bottom:0}
+.sp-recurso .flecha{color:var(--y);transition:transform 220ms var(--ease-out)}
+@media(hover:hover) and (pointer:fine){
+  .sp-recurso:hover{color:var(--y)}
+  .sp-recurso:hover .flecha{transform:translate(4px,-4px)}
+}
+.sp-mas{
+  display:inline-flex;align-items:center;gap:10px;margin-top:clamp(26px,3.4vw,50px);
+  border:0;background:none;padding:0;cursor:pointer;color:inherit;font:inherit;
+  font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase
+}
+.sp-mas .flecha{color:var(--y);transition:transform 220ms var(--ease-out)}
+.sp-mas:hover .flecha{transform:translateX(5px)}
+.sp-vacio{padding:clamp(36px,5vw,80px) 0;color:var(--fg-dim);font-size:clamp(1rem,1.2vw,1.2rem);max-width:56ch}
+@media(max-width:860px){
+  .sp-nota{grid-template-columns:1fr;gap:18px}
+  .nav-links a:not(.nav-cta){display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .sp-recurso .flecha,.sp-mas .flecha{transition:none}
+}
+
+/* ---------- ajustes finales sala de prensa ---------- */
+.sp-section-head{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+  padding:clamp(32px,4vw,58px) 0 14px;border-bottom:1px solid var(--line)
+}
+.sp-section-head h2{
+  font-size:clamp(2rem,4vw,3.6rem)
+}
+.sp-section-head span{
+  font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-dim)
+}
+.sp-archivo{
+  padding-block:0 clamp(70px,9vw,130px)
+}
+.sp-archivo-title{
+  margin:0 0 18px;padding-top:22px;border-top:5px solid var(--y);
+  font-size:clamp(1.8rem,3.4vw,3.2rem)
+}
+.sp-archivo-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)
+}
+.sp-archivo-item{
+  min-height:150px;padding:24px 22px 24px 0
+}
+.sp-archivo-item + .sp-archivo-item{
+  border-left:1px solid var(--line);padding-left:22px
+}
+.sp-archivo-item h3{
+  font-family:var(--font-text);font-size:11px;line-height:1.45;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 12px
+}
+.sp-archivo-item p{
+  color:var(--fg-dim);font-size:13px;margin:0 0 16px
+}
+.sp-archivo-link{
+  display:inline-flex;align-items:center;gap:8px;padding-bottom:4px;
+  border-bottom:2px solid var(--y);font-size:12px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase
+}
+.sp-archivo-link .flecha{color:var(--y);transition:transform 220ms var(--ease-out)}
+.sp-archivo-link:hover .flecha{transform:translateX(4px)}
+
+/* con mas de cuatro espacios la rejilla hace varias filas: los filetes se recolocan */
+@media(min-width:981px){
+  .sp-archivo-grid > :nth-child(4n+1){border-left:0;padding-left:0}
+  .sp-archivo-grid > :nth-child(n+5){border-top:1px solid var(--line)}
+}
+@media(max-width:980px){
+  .sp-archivo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sp-archivo-item:nth-child(odd){border-left:0;padding-left:0}
+  .sp-archivo-item:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media(max-width:640px){
+  .sp-section-head{align-items:flex-start;flex-direction:column;gap:8px}
+  .sp-section-head span{display:none}
+  .sp-archivo-grid{grid-template-columns:1fr}
+  .sp-archivo-item,
+  .sp-archivo-item + .sp-archivo-item{
+    min-height:auto;border-left:0;border-top:1px solid var(--line);
+    padding:18px 0
+  }
+  .sp-archivo-item:first-child{border-top:0}
+}
+
+
+/* ---------- microinteracciones editoriales ---------- */
+.sp-filtro{
+  position:relative;
+  padding-bottom:8px;
+}
+.sp-filtro::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:2px;
+  background:var(--y);
+  transition:width 240ms var(--ease-out);
+}
+.sp-filtro:hover::after,
+.sp-filtro[aria-pressed="true"]::after{
+  width:100%;
+}
+
+.sp-nota{
+  position:relative;
+  transition:
+    background 260ms ease,
+    padding-left 280ms var(--ease-out),
+    padding-right 280ms var(--ease-out),
+    transform 280ms var(--ease-out);
+}
+.sp-nota::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:18%;
+  width:3px;
+  height:0;
+  background:var(--y);
+  transition:height 320ms var(--ease-out);
+}
+.sp-nota h2{
+  transition:transform 260ms var(--ease-out), color 220ms ease;
+}
+.sp-nota p{
+  transition:color 220ms ease;
+}
+
+@media(hover:hover) and (pointer:fine){
+  .sp-nota:hover{
+    background:color-mix(in srgb,var(--y) 5%,var(--bg));
+    padding-left:18px;
+    padding-right:18px;
+    transform:translateY(-1px);
+  }
+  .sp-nota:hover::before{
+    height:64%;
+  }
+  .sp-nota:hover h2{
+    transform:translateX(7px);
+  }
+  .sp-nota:hover p{
+    color:var(--fg);
+  }
+}
+
+.sp-recurso{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  transition:
+    color 220ms ease,
+    padding-left 220ms var(--ease-out),
+    padding-right 220ms var(--ease-out),
+    background 220ms ease;
+}
+.sp-recurso::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:color-mix(in srgb,var(--y) 10%,transparent);
+  transform:translateX(-101%);
+  transition:transform 260ms var(--ease-out);
+  z-index:-1;
+}
+@media(hover:hover) and (pointer:fine){
+  .sp-recurso:hover{
+    color:var(--fg);
+    padding-left:8px;
+    padding-right:8px;
+  }
+  .sp-recurso:hover::before{
+    transform:translateX(0);
+  }
+  .sp-recurso:hover .flecha{
+    transform:translate(5px,-3px);
+  }
+}
+
+.sp-mas{
+  position:relative;
+  padding-bottom:6px;
+}
+.sp-mas::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:100%;
+  bottom:0;
+  height:2px;
+  background:var(--y);
+  transition:right 260ms var(--ease-out);
+}
+.sp-mas:hover::after{right:0}
+
+.sp-archivo-item{
+  position:relative;
+  transition:background 240ms ease,padding-left 240ms var(--ease-out);
+}
+.sp-archivo-item::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:3px;
+  background:var(--y);
+  transition:width 280ms var(--ease-out);
+}
+@media(hover:hover) and (pointer:fine){
+  .sp-archivo-item:hover{
+    background:color-mix(in srgb,var(--y) 5%,transparent);
+  }
+  .sp-archivo-item:hover::after{
+    width:100%;
+  }
+}
+
+.sp-head h1{
+  position:relative;
+  display:inline-block;
+}
+.sp-head h1::after{
+  content:"";
+  display:block;
+  width:72px;
+  height:6px;
+  margin-top:18px;
+  background:var(--y);
+}
+
+@media(max-width:860px){
+  .sp-nota:hover{
+    padding-left:0;
+    padding-right:0;
+    transform:none;
+  }
+  .sp-nota::before{display:none}
+}
+
+</style>
+
+<!-- ===== Umami (analitica sin cookies) =====
+     Los mismos dos valores que en el index.html de la raiz. -->
+<script defer
+        src="https://TU-INSTANCIA-UMAMI/script.js"
+        data-website-id="TU-WEBSITE-ID"
+        data-domains="yellowmedia.es,www.yellowmedia.es"></script>
+</head>
+<body>
+
+<header class="nav solid">
+  <div class="wrap nav-in">
+    <a class="brand" href="../index.html" aria-label="Yellow Media · inicio">
+      <img class="sobre-oscuro" src="../assets/logo-ym-claro.png" alt="Yellow Media">
+      <img class="sobre-claro" src="../assets/logo-ym-oscuro.png" alt="Yellow Media">
+    </a>
+    <nav class="nav-links">
+      <a href="../index.html#espacios">Espacios</a>
+      <a href="../index.html#hacemos">Lo que hacemos</a>
+      <a href="../index.html#somos">Somos</a>
+      <a href="./" aria-current="page">Prensa</a>
+      <a class="nav-cta" href="../index.html#contacto">Contacto</a>
+      <button class="theme-btn" id="theme" type="button" aria-label="Cambiar entre modo claro y oscuro">
+        <span class="theme-dot"></span><span id="theme-label">Oscuro</span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="sp-head">
+    <div class="wrap">
+      <h1>Sala de Prensa</h1>
+      <p class="lead">Notas de prensa, fotografías en alta y fichas artísticas. Descarga libre para uso periodístico, citando el crédito de cada fotografía.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="sp-filtros" id="filtros"></div>
+  </div>
+
+  <section class="wrap">
+    <div class="sp-section-head">
+      <h2>Últimas publicaciones</h2>
+      <span>Información y materiales para medios</span>
+    </div>
+    <div class="sp-lista" id="lista"></div>
+  </section>
+
+  <section class="wrap sp-archivo" id="archivo">
+    <h2 class="sp-archivo-title">Archivo por espacio</h2>
+    <div class="sp-archivo-grid" id="archivo-grid"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="foot-logo" href="../index.html" aria-label="Yellow Media">
+      <img class="sobre-oscuro" src="../assets/logo-ym-claro.png" alt="Yellow Media">
+      <img class="sobre-claro" src="../assets/logo-ym-oscuro.png" alt="Yellow Media">
+    </a>
+    <small>© 2026 Yellow Media · Madrid</small>
+    <nav aria-label="Información legal">
+      <a href="../index.html#aviso-legal">Aviso legal</a>
+      <a href="../index.html#privacidad">Privacidad</a>
+      <a href="../index.html#cookies">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- ===== LISTADO DE NOTAS =====
+     Para anadir o quitar una nota se edita SOLO este bloque.
+     Ver COMO-ANADIR-UNA-NOTA.txt -->
+<script type="application/json" id="datos">
+{
+  "espacios": [
+    {
+      "id": "pavon",
+      "nombre": "Gran Teatro Pavón"
+    },
+    {
+      "id": "principe-pio",
+      "nombre": "Gran Teatro CaixaBank Príncipe Pío"
+    },
+    {
+      "id": "ambigu",
+      "nombre": "Ambigú del Gran Teatro Pavón"
+    },
+    {
+      "id": "serrano",
+      "nombre": "Teatro Serrano"
+    },
+    {
+      "id": "pedraza",
+      "nombre": "Gran Castillo de Pedraza"
+    },
+    {
+      "id": "soho-city",
+      "nombre": "Soho City Madrid"
+    },
+    {
+      "id": "yellow",
+      "nombre": "Yellow Media"
+    }
+  ],
+  "notas": [
+    {
+      "espacio": "pavon",
+      "titulo": "Ya me has tocado el cuento estrena su cuarta temporada en el Gran Teatro Pavón",
+      "fecha": "2026-09-18",
+      "resumen": "Los Príncipes regresan a Madrid el viernes 18 de septiembre a las 21:30 h con una comedia que desmonta el «vivieron felices para siempre». Continúa el universo de No me toques el cuento: Aurora, Bella, Cenicienta y Blancanieves se van al Mundo Real y Florian, Felipe, Bestia y Enrique salen a buscarlas. Producción de MPC Management. El elenco está disponible para entrevistas según agenda.",
+      "archivos": [
+        {
+          "nombre": "Nota de prensa",
+          "url": "notas/pavon-ya-me-has-tocado-el-cuento/nota-de-prensa.pdf"
+        },
+        {
+          "nombre": "Entradas",
+          "url": "https://mpcentradas.es/espectaculos/ya-me-has-tocado-el-cuento/"
+        }
+      ]
+    },
+    {
+      "espacio": "pavon",
+      "titulo": "No me toques el cuento vuelve al Gran Teatro Pavón el 12 de septiembre",
+      "fecha": "2026-09-02",
+      "fecha_texto": "Septiembre 2026",
+      "resumen": "El espectáculo regresa al Gran Teatro Pavón.",
+      "archivos": [
+        {
+          "nombre": "Nota de prensa",
+          "url": "https://mailchi.mp/granteatropavon/no-me-toques-el-cuento-vuelve-al-gran-teatro-pavn-el-12-de-septiembre"
+        }
+      ]
+    },
+    {
+      "espacio": "pavon",
+      "titulo": "Pegados se estrena en el Gran Teatro Pavón el 28 de octubre",
+      "fecha": "2026-09-20",
+      "resumen": "El musical, dirigido por Gabriel Olivares, llega al Gran Teatro Pavón.",
+      "archivos": [
+        {
+          "nombre": "Cartel y fotografías",
+          "url": "https://www.dropbox.com/scl/fo/minkdav1c62lmpd4e1wy7/ADhqUN-vKZcCwNPyHBHz028?rlkey=nnewfs72u0rfkn6fnxvcq5lkw&dl=0"
+        },
+        {
+          "nombre": "Nota de prensa (Word)",
+          "url": "https://www.dropbox.com/scl/fo/minkdav1c62lmpd4e1wy7/ADhqUN-vKZcCwNPyHBHz028?rlkey=nnewfs72u0rfkn6fnxvcq5lkw&dl=0"
+        },
+        {
+          "nombre": "Material gráfico",
+          "url": "https://pegados-granteatropavon.netlify.app/"
+        }
+      ]
+    },
+    {
+      "espacio": "pedraza",
+      "titulo": "El Festival Noches Clásicas regresa al Gran Castillo de Pedraza con ocho conciertos",
+      "fecha": "2026-06-01",
+      "fecha_texto": "Verano 2026",
+      "resumen": "Segunda edición, de junio a septiembre, en el patio de armas del castillo. Ocho conciertos que van del Barroco al Romanticismo y la ópera, con dos programas nuevos dedicados a Bach y al repertorio romántico. Interpreta la orquesta Sing Us, dirigida por Eva Marco. Cada velada arranca con la puesta de sol y sigue a la luz de las velas.",
+      "archivos": [
+        {
+          "nombre": "Dossier PDF",
+          "url": "notas/pedraza-noches-clasicas/dossier-de-prensa.pdf"
+        },
+        {
+          "nombre": "Cartel",
+          "url": "https://www.dropbox.com/scl/fo/4wyaagdpcsnvy10v25xun/AMqxklpxPFQZXaVEC7QKM3g?rlkey=4gn7oylbh1ohwrbz0vzltypn1&dl=0"
+        },
+        {
+          "nombre": "Fotografías HD",
+          "url": "https://www.dropbox.com/scl/fo/klifc1724htkdgkobnuym/ACegmRPyfgrV_2IvVGaetf8?rlkey=blnqk4l7flt5j4eltx7zozca0&dl=0"
+        },
+        {
+          "nombre": "Vídeo promocional",
+          "url": "https://youtu.be/2CUevQS4Zpo"
+        },
+        {
+          "nombre": "Entradas",
+          "url": "https://tickets.oneboxtds.com/grancastillodepedraza/events"
+        },
+        {
+          "nombre": "Nota de prensa",
+          "url": "https://mailchi.mp/laestacion.com/noches_clasicas_edicion_2-12858495"
+        }
+      ]
+    },
+    {
+      "espacio": "principe-pio",
+      "titulo": "Berto Romero se despide de Lo nunca visto con ocho funciones en el Gran Teatro CaixaBank Príncipe Pío",
+      "fecha": "2026-09-20",
+      "resumen": "Del 3 al 13 de diciembre de 2026, tras más de dos años de gira y sold out en todas las funciones. Noventa minutos de stand-up, canciones originales e improvisación junto a Iván Lagarto. Recomendado para mayores de 18 años. Entrevistas con Berto Romero disponibles según agenda.",
+      "archivos": [
+        {
+          "nombre": "Nota de prensa",
+          "url": "notas/principe-pio-berto-romero/nota-de-prensa.pdf"
+        },
+        {
+          "nombre": "Material gráfico",
+          "url": "https://drive.google.com/drive/folders/1e6_KoCm_ciYyG7ngOSbYaVUJikSrNCfb?usp=drive_link"
+        },
+        {
+          "nombre": "Entradas",
+          "url": "https://laestacion.com/"
+        }
+      ]
+    },
+    {
+      "espacio": "soho-city",
+      "titulo": "Soho City amplía las visitas tras recibir a más de mil personas en tres días",
+      "fecha": "2026-09-15",
+      "resumen": "El recinto abre una segunda convocatoria de puertas abiertas el sábado 19 y el domingo 20 de septiembre, con dos turnos de accesibilidad reforzada. Los recorridos entran en El Circo, la sala de planta circular con graderío retráctil, dentro de un complejo de 66.000 m² que recupera el antiguo CREAA de Alcorcón y tiene el 70% de su infraestructura construida.",
+      "archivos": [
+        {
+          "nombre": "Nota de prensa",
+          "url": "notas/soho-city-amplia-visitas/nota-de-prensa.pdf"
+        },
+        {
+          "nombre": "Fotografías HD",
+          "url": "https://www.dropbox.com/scl/fo/n6a5l95k8h1i96uikf5g6/ANgAkLt4MvARA379iyeiaOQ?rlkey=2o0r1iraiasefn9u5ozy96pjx&dl=0"
+        },
+        {
+          "nombre": "Reservas",
+          "url": "https://sohocitymadrid.com"
+        }
+      ]
+    },
+    {
+      "espacio": "yellow",
+      "titulo": "La vida en un segundo estrena en Madrid en el Teatro Arlequín Gran Vía",
+      "fecha": "2026-09-15",
+      "resumen": "ConUnCantoEnLosDientes estrena el 17 de septiembre el primer musical sobre las experiencias cercanas a la muerte. Manuel Ramos interpreta una decena de personajes en solitario, con dirección de Alejandra Jiménez Cascón y música original de Iván Herzog.",
+      "archivos": [
+        {
+          "nombre": "Nota de prensa",
+          "url": "notas/lavida-en-un-segundo/nota-de-prensa.pdf"
+        },
+        {
+          "nombre": "Nota de prensa (Word)",
+          "url": "notas/lavida-en-un-segundo/nota-de-prensa.docx"
+        },
+        {
+          "nombre": "Fotografías HD",
+          "url": "https://www.dropbox.com/scl/fo/cfobgzfibpocw0upabmtb/AKITo-ucAMSig7mLSm5wDXs?rlkey=mhf2vycfrqjenvehc7fivaexl&dl=0"
+        },
+        {
+          "nombre": "Tráiler",
+          "url": "https://youtu.be/5q-uPtkI7CE"
+        },
+        {
+          "nombre": "Entradas",
+          "url": "https://tickets.oneboxtds.com/abonoteatronuevo/events/56886"
+        }
+      ]
+    },
+    {
+      "espacio": "pavon",
+      "titulo": "Patricia Donn estrena A cuerda y tacón en el Gran Teatro Pavón",
+      "fecha": "2026-08-31",
+      "resumen": "Funciones el 7, 14 y 21 de septiembre y el 5 de octubre a las 20:00 h. Es la primera mujer que recupera el Zapateado de Sarasate que popularizó Antonio el Bailarín, y lleva el zapateado a las puntas en el Repique del colibrí. El baile dialoga en directo con violín, guitarra, voz y percusión. Entrevistas a través de Javier Bellot.",
+      "archivos": [
+        {
+          "nombre": "Nota de prensa",
+          "url": "notas/pavon-patricia-donn/nota-de-prensa.pdf"
+        },
+        {
+          "nombre": "Dossier PDF",
+          "url": "https://www.dropbox.com/scl/fi/1gta4gl1u0nyxz5d3igoa/Dossier-Patricia-Donn-A-cuerda-y-tac-n-comprimido.pdf?rlkey=5x80wf1zcoj7gg928zvc98bhy&dl=1"
+        },
+        {
+          "nombre": "Fotografías HD",
+          "url": "https://www.dropbox.com/scl/fo/ayp1xiyplfb5yz0iremcw/AGAKmVT51zE14NlTCScil6w?rlkey=xmu9zii4amnkoqve2i5lbrtl8&dl=0"
+        },
+        {
+          "nombre": "Vídeo",
+          "url": "https://www.instagram.com/reel/DcrLuonNCje/"
+        },
+        {
+          "nombre": "Entradas",
+          "url": "https://tickets.oneboxtds.com/tpavon/events/58350"
+        }
+      ]
+    },
+    {
+      "espacio": "soho-city",
+      "titulo": "Soho City abre al público por primera vez",
+      "fecha": "2026-08-27",
+      "resumen": "Jornadas de Puertas Abiertas del 4 al 6 de septiembre, antes de la apertura oficial. El proyecto reúne artes escénicas, gastronomía, tecnología y entretenimiento en 66.000 m² sobre el antiguo CREAA de Alcorcón: seis escenarios con una misma programación.",
+      "archivos": [
+        {
+          "nombre": "Nota de prensa",
+          "url": "notas/soho-city-puertas-abiertas/nota-de-prensa.pdf"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function(){
+  var POR_TANDA = 6;
+  var lista = document.getElementById('lista');
+  var barra = document.getElementById('filtros');
+  var archivoGrid = document.getElementById('archivo-grid');
+  var datos = null, activo = 'todos', visibles = POR_TANDA;
+
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+  function fecha(iso){
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+    if (!m) return esc(iso);
+    var meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+    return Number(m[3]) + ' de ' + meses[Number(m[2]) - 1] + ' de ' + m[1];
+  }
+
+  function nombreEspacio(id){
+    var e = (datos.espacios || []).filter(function(x){ return x.id === id; })[0];
+    return e ? e.nombre : id;
+  }
+
+  function delEspacio(id){
+    var t = (datos.notas || []).slice().sort(function(a, b){
+      return (b.fecha || '').localeCompare(a.fecha || '');
+    });
+    return id === 'todos' ? t : t.filter(function(n){ return n.espacio === id; });
+  }
+
+  function pintarFiltros(){
+    var html = '<button class="sp-filtro" type="button" data-id="todos" aria-pressed="true">Todos<sup>' +
+               delEspacio('todos').length + '</sup></button>';
+    (datos.espacios || []).forEach(function(e){
+      var n = delEspacio(e.id).length;
+      html += '<button class="sp-filtro' + (n ? '' : ' vacio') + '" type="button" data-id="' + esc(e.id) +
+              '" aria-pressed="false">' + esc(e.nombre) + '<sup>' + n + '</sup></button>';
+    });
+    barra.innerHTML = html;
+    barra.addEventListener('click', function(ev){
+      var b = ev.target.closest('.sp-filtro');
+      if (!b) return;
+      activo = b.getAttribute('data-id');
+      visibles = POR_TANDA;
+      Array.prototype.forEach.call(barra.querySelectorAll('.sp-filtro'), function(x){
+        x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+      });
+      pintar();
+    });
+  }
+
+  function pintarArchivo(){
+    if (!archivoGrid) return;
+    var html = '';
+    (datos.espacios || []).forEach(function(e){
+      var n = delEspacio(e.id).length;
+      html += '<article class="sp-archivo-item' + (n ? '' : ' vacio') + '">' +
+        '<h3>' + esc(e.nombre) + '</h3>' +
+        '<p>' + (n === 0 ? 'Sin documentos por ahora'
+                         : n + (n === 1 ? ' documento publicado' : ' documentos publicados')) + '</p>' +
+        (n ? '<a class="sp-archivo-link" href="#" data-archivo-id="' + esc(e.id) + '">' +
+             'Ver todo <span class="flecha">&#8594;</span></a>' : '') +
+        '</article>';
+    });
+    archivoGrid.innerHTML = html;
+
+    Array.prototype.forEach.call(archivoGrid.querySelectorAll('[data-archivo-id]'), function(a){
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        activo = a.getAttribute('data-archivo-id');
+        visibles = POR_TANDA;
+        Array.prototype.forEach.call(barra.querySelectorAll('.sp-filtro'), function(x){
+          x.setAttribute('aria-pressed', x.getAttribute('data-id') === activo ? 'true' : 'false');
+        });
+        pintar();
+        var top = barra.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({top:top,behavior:'smooth'});
+      });
+    });
+  }
+
+  function pintar(){
+    var todas = delEspacio(activo);
+    if (!todas.length){
+      lista.innerHTML = '<p class="sp-vacio">Todavía no hay material publicado en este apartado.</p>';
+      return;
+    }
+    var muestra = todas.slice(0, visibles);
+    var html = muestra.map(function(n){
+      var rec = (n.archivos || []).map(function(a){
+        var fuera = /^https?:/i.test(a.url);
+        var evento = (n.titulo || '').slice(0, 48) + ' — ' + a.nombre;
+        return '<a class="sp-recurso" href="' + esc(a.url) + '"' +
+               ' data-umami-event="' + esc(evento) + '"' +
+               (fuera ? ' target="_blank" rel="noopener"' : ' download') + '>' +
+               '<span>' + esc(a.nombre) + '</span>' +
+               '<span class="flecha">' + (fuera ? '&#8599;' : '&#8595;') + '</span></a>';
+      }).join('');
+      return '<article class="sp-nota">' +
+        '<div><div class="sp-meta">' +
+          '<span class="sp-esp">' + esc(nombreEspacio(n.espacio)) + '</span>' +
+          '<span class="sp-fecha">' + (n.fecha_texto ? esc(n.fecha_texto) : fecha(n.fecha)) + '</span>' +
+        '</div><h2>' + esc(n.titulo) + '</h2>' +
+        (n.resumen ? '<p>' + esc(n.resumen) + '</p>' : '') +
+        '</div><div class="sp-recursos">' + rec + '</div></article>';
+    }).join('');
+
+    if (todas.length > visibles){
+      html += '<button class="sp-mas" type="button" id="mas">Ver más notas <span class="flecha">&#8594;</span></button>';
+    }
+    lista.innerHTML = html;
+    var mas = document.getElementById('mas');
+    if (mas) mas.addEventListener('click', function(){ visibles += POR_TANDA; pintar(); });
+  }
+
+  /* --- modo claro / oscuro, igual que en la web --- */
+  var btn = document.getElementById('theme');
+  var label = document.getElementById('theme-label');
+  var meta = document.querySelector('meta[name="theme-color"]');
+  btn.addEventListener('click', function(){
+    var claro = document.documentElement.getAttribute('data-theme') === 'light';
+    document.documentElement.setAttribute('data-theme', claro ? 'dark' : 'light');
+    label.textContent = claro ? 'Claro' : 'Oscuro';
+    if (meta) meta.setAttribute('content', claro ? '#1c1c1c' : '#f7f5ef');
+  });
+
+  try{
+    datos = JSON.parse(document.getElementById('datos').textContent);
+    pintarFiltros();
+    pintarArchivo();
+    pintar();
+  }catch(e){
+    lista.innerHTML = '<p class="sp-vacio">Hay un error de formato en el listado de notas: seguramente falta una coma o unas comillas. Revisa el bloque JSON de esta misma pagina en jsonlint.com.</p>';
+  }
+})();
+</script>
+</body>
+</html>

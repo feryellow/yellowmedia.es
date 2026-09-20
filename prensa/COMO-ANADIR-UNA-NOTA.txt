@@ -1,0 +1,101 @@
+SALA DE PRENSA — cómo añadir o quitar una nota
+==============================================
+
+Todo se maneja desde un único sitio: el bloque que hay dentro de
+index.html entre las etiquetas <script type="application/json" id="datos">
+y </script>. Ábrelo con cualquier editor de texto.
+
+
+AÑADIR UNA NOTA
+---------------
+
+1. Crea una carpeta dentro de "notas" con un nombre corto, en minúsculas y
+   con guiones en lugar de espacios. Ejemplo:
+
+       notas/pavon-los-altos-del-pavon/
+
+   Dentro metes el PDF de la nota, la ficha artística y lo que pese poco.
+   Las fotos en alta NO las metas aquí: súbelas a Drive y usa el enlace.
+
+2. Abre index.html, busca ese bloque y añade una entrada dentro de
+   "notas": [ ... ]
+   Si ya hay otro bloque, sepáralos con una coma.
+
+       {
+         "espacio": "pavon",
+         "titulo": "Título de la nota de prensa",
+         "fecha": "2026-10-14",
+         "resumen": "Dos o tres líneas contando de qué va.",
+         "archivos": [
+           { "nombre": "Nota de prensa (PDF)",
+             "url": "notas/pavon-los-altos-del-pavon/nota.pdf" },
+           { "nombre": "Ficha artística (PDF)",
+             "url": "notas/pavon-los-altos-del-pavon/ficha.pdf" },
+           { "nombre": "Fotografías en alta",
+             "url": "https://drive.google.com/..." }
+         ]
+       }
+
+   "espacio" tiene que ser uno de los identificadores de la lista "espacios"
+   que hay arriba del archivo: pavon, principe-pio, ambigu, serrano,
+   pedraza, soho-city, yellow.
+
+   "fecha" siempre en formato AAAA-MM-DD. Ordena sola, de más nueva a más
+   vieja, y se muestra escrita en castellano.
+
+   Si no quieres enseñar un día concreto, añade "fecha_texto" con lo que
+   quieras que se lea ("Verano 2026", "Temporada 25/26"). "fecha" se sigue
+   usando para ordenar, pero ya no se muestra.
+
+   Si la url empieza por http, se abre en una pestaña nueva con una flecha
+   diagonal. Si es una ruta de la carpeta, se descarga con una flecha hacia
+   abajo. No hay que indicar nada más.
+
+   Nombres de recurso que usamos, para no inventar uno nuevo cada vez:
+   Nota de prensa · Dossier PDF · Fotografías HD · Ficha artística ·
+   Convocatoria · Cartel · Biografías · Material gráfico · Otros documentos
+
+3. Sube por FTP solo dos cosas: prensa/index.html y la carpeta nueva.
+   No hace falta volver a subir la web entera.
+
+
+QUITAR UNA NOTA
+---------------
+
+Borra su entrada del bloque y vuelve a subir prensa/index.html. La nota desaparece del
+listado. Si además quieres liberar espacio, borra su carpeta del servidor.
+
+Si alguien tenía guardado el enlace del PDF, le saldrá un error 404. Para
+evitarlo, en vez de borrar el PDF puedes dejarlo y quitar solo el bloque
+del listado: deja de verse en la sala de prensa pero el enlace antiguo
+sigue funcionando.
+
+
+COMPROBAR ANTES DE SUBIR
+------------------------
+
+El bloque es muy tiquismiquis con las comas y las comillas. Si te falta
+una coma, la página avisa de que hay un error de formato. Pega el contenido
+del bloque en jsonlint.com y te dice dónde está el fallo.
+
+Abrir index.html con doble clic desde tu ordenador funciona: verás la
+página tal cual, con las notas y los filtros. Los PDF se descargan también.
+
+La página muestra las 6 notas más recientes y el resto aparece al pulsar
+"Ver más notas". Los números pequeños de los filtros se calculan solos.
+
+
+LA PÁGINA ES PÚBLICA
+--------------------
+
+Desde el 20 de septiembre de 2026 la sala de prensa es pública: se ha
+quitado la etiqueta noindex y aparece en el menú de la web y en el pie.
+La dirección es yellowmedia.es/prensa/
+
+En la raíz de la web hay dos archivos nuevos que hay que subir también:
+robots.txt y sitemap.xml. Sirven para que Google encuentre las dos páginas.
+Si añades más páginas en el futuro, hay que anotarlas en sitemap.xml.
+
+Que sea pública significa que cualquier nota que pongas en el listado es
+visible para todo el mundo desde que la subes. Si necesitas preparar una
+nota con embargo, no la publiques aquí hasta la fecha.
