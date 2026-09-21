@@ -17,6 +17,15 @@ AÑADIR UNA NOTA
    Dentro metes el PDF de la nota, la ficha artística y lo que pese poco.
    Las fotos en alta NO las metas aquí: súbelas a Drive y usa el enlace.
 
+   El nombre del archivo importa: es el que le queda al periodista en su
+   carpeta de descargas. Nada de "nota.pdf". Usa el formato
+
+       Nota-de-prensa-Titulo-Del-Espectaculo.pdf
+
+   sin acentos, sin eñes y sin espacios, con guiones. Si todas las notas se
+   llamaran igual, quien descargue tres acabaría con nota-de-prensa.pdf,
+   nota-de-prensa-1.pdf y nota-de-prensa-2.pdf, y no sabría cuál es cuál.
+
 2. Abre index.html, busca ese bloque y añade una entrada dentro de
    "notas": [ ... ]
    Si ya hay otro bloque, sepáralos con una coma.
